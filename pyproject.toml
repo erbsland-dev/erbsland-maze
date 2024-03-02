@@ -1,0 +1,7 @@
+[build-system]
+requires = [
+    "setuptools>=57",
+    "wheel",
+    "pycairo"
+]
+build-backend = "setuptools.build_meta"

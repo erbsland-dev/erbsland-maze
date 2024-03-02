@@ -1,0 +1,5 @@
+.idea
+*.svg
+.venv
+__pycache__
+.DStore
