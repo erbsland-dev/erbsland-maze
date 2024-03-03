@@ -17,11 +17,6 @@ Features
 Requirements
 ------------
 
-- Python 3.12
-- The *pycairo* library.
-
-## Requirements
-
 To use Erbsland Maze, you'll need:
 
 - Python 3.12 or higher.
