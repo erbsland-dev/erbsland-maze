@@ -10,11 +10,21 @@ class Corner(enum.StrEnum):
     """
 
     TOP_LEFT = "top_left"
+    """The top left corner."""
+
     TOP_RIGHT = "top_right"
+    """The top right corner."""
+
     BOTTOM_RIGHT = "bottom_right"
+    """The bottom right corner."""
+
     BOTTOM_LEFT = "bottom_left"
+    """The bottom left corner."""
 
     def opposite(self):
+        """
+        Get the opposite corner.
+        """
         match self:
             case Corner.TOP_RIGHT:
                 return Corner.BOTTOM_LEFT

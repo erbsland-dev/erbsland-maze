@@ -12,3 +12,6 @@ class Size:
 
     width: float
     height: float
+
+    def __repr__(self):
+        return f"Size({self.width:0.2f},{self.height:0.2f})"

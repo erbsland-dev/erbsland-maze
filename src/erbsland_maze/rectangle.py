@@ -20,6 +20,9 @@ class Rectangle:
         self.pos = pos
         self.size = size
 
+    def __repr__(self):
+        return f"Rectangle({self.pos}, {self.size})"
+
     @property
     def x1(self) -> float:
         """
@@ -85,5 +88,5 @@ class Rectangle:
         """
         return Rectangle(
             Point(self.pos.x + distance, self.pos.y + distance),
-            Size(self.size.width - 2 * distance, self.size.height - 2 * distance),
+            Size(self.size.width - 2.0 * distance, self.size.height - 2.0 * distance),
         )

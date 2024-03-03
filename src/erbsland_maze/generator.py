@@ -5,11 +5,12 @@ from itertools import product, combinations
 from pathlib import Path
 from typing import Optional
 
+from .about import VERSION
 from .error_mark import ErrorMark
 from .generator_error import GeneratorError, NoValidSolutionError
 from .generator_setup import GeneratorSetup
 from .generator_stack import GeneratorStack
-from .graphical_layout import GraphicalLayout
+from .layout import Layout
 from .path_groups import PathGroups
 from .path_join_info import PathJoinInfo
 from .path_pair import PathPair
@@ -26,24 +27,34 @@ class Generator:
     The maze generator.
     """
 
-    def __init__(self, layout: GraphicalLayout, setup: GeneratorSetup = GeneratorSetup()):
+    def __init__(self, layout: Layout, setup: GeneratorSetup = GeneratorSetup()):
         """
         Create a new instance of the maze generator.
 
         :param layout: The graphical layout for the maze to generate.
         :param setup: The setup for the generator.
         """
-        if not isinstance(layout, GraphicalLayout):
+        if not isinstance(layout, Layout):
             raise TypeError("graphical_layout must be a GraphicalLayout instance.")
         if not isinstance(setup, GeneratorSetup):
             raise TypeError("generator_setup must be a GeneratorSetup instance.")
-        self.layout: Optional[GraphicalLayout] = layout
+        self.layout: Optional[Layout] = layout
         self.setup: GeneratorSetup = setup
         #
         size = self.layout.initialize()
         self.room_grid = RoomGrid(size)  # Create the room grid with the calculated size.
         self.path_end_rooms: list[Room] = []  # The rooms associated with the path ends.
         self.error_marks: list[ErrorMark] = []  # Error marks for the output.
+
+    def print_info(self):
+        """
+        Print the welcome message and basic infos about the generated maze.
+        """
+        if not self.setup.verbose:
+            return
+        print(f"Erbsland Maze - V{VERSION}")
+        print(f"  Layout: {self.layout.get_dimension_info()}")
+        print(f"  Room count: {self.room_grid.size.width} x {self.room_grid.size.height}")
 
     def raise_generator_error(self, message: str, location: RoomLocation, size: RoomSize = RoomSize(1, 1)):
         if self.setup.ignore_errors:
@@ -236,21 +247,25 @@ class Generator:
 
     def generate_output(self, path: Path):
         """
-        Create the SVG output from the generated maze.
+        Render the output from the generated maze.
 
-        :param path: The output path for the SVG file.
+        :param path: The output path file.
         """
         if self.setup.verbose:
-            print("Generating SVG output...")
-        self.layout.save_svg(path, list(self.room_grid.get_all_rooms()), self.path_end_rooms)
+            print("Rendering image...")
+        self.layout.render_image(path, list(self.room_grid.get_all_rooms()), self.path_end_rooms)
 
-    def generate_and_save_as_svg(self, path: Path):
+    def generate_and_save(self, path: Path):
         """
-        Generate and save the maze in the SVG format.
+        Generate and save the maze in the specified format.
 
-        :param path: The output path of the SVG file.
+        :param path: The output path for the image.
         """
+        self.print_info()
         self.prepare_rooms()
+        if self.setup.layout_only:
+            self.generate_output(path)
+            return
         for attempt in range(self.setup.maximum_attempts):
             if self.setup.verbose:
                 print(f"{attempt + 1}. attempt to find a solution.")

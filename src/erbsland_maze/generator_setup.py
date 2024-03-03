@@ -7,6 +7,10 @@ from .placement import Placement
 
 
 class GeneratorSetup:
+    """
+    The setup parameters for the generator.
+    """
+
     def __init__(
         self,
         path_ends: list[PathEnd] = None,
@@ -15,6 +19,7 @@ class GeneratorSetup:
         maximum_attempts: int = 20,
         verbose: bool = True,
         ignore_errors: bool = False,
+        layout_only: bool = False,
     ):
         """
         Create the setup for the maze generator.
@@ -26,6 +31,7 @@ class GeneratorSetup:
         :param maximum_attempts: The maximum number of attempts to find a solution for the maze before giving up.
         :param verbose: Display status information on the console.
         :param ignore_errors: Ignore errors, and produce invalid/incomplete solutions for debugging.
+        :param layout_only: If true, do not generate the maze, and save a snapshot of the layout.
         """
         if path_ends:
             if not isinstance(path_ends, list):
@@ -43,6 +49,8 @@ class GeneratorSetup:
             raise TypeError("allow_islands must be a bool")
         if not isinstance(maximum_attempts, int):
             raise TypeError("maximum_attempts must be an integer.")
+        if not isinstance(layout_only, bool):
+            raise TypeError("layout_only must be a bool")
         if maximum_attempts < 1 or maximum_attempts > 10_000:
             raise TypeError("maximum_attempts must is outside of a valid range of 1 to 10'000.")
         if path_ends:
@@ -56,3 +64,4 @@ class GeneratorSetup:
         self.maximum_attempts: int = maximum_attempts
         self.verbose: bool = verbose
         self.ignore_errors: bool = ignore_errors
+        self.layout_only: bool = layout_only

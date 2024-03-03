@@ -4,6 +4,15 @@ import enum
 
 
 class Parity(enum.StrEnum):
+    """
+    Requesting a parity of a number of elements.
+    """
+
     NONE = "none"
+    """No parity requested."""
+
     ODD = "odd"
+    """Odd parity requested."""
+
     EVEN = "even"
+    """Even parity requested."""

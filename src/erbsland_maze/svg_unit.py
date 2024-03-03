@@ -10,4 +10,7 @@ class SvgUnit(enum.Enum):
     """
 
     MM = 0
+    """Millimetre unit."""
+
     PX = 1
+    """Pixel unit."""

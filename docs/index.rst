@@ -3,14 +3,6 @@ Welcome to Erbsland Maze
 
 Erbsland Maze is a sophisticated, open-source maze generator designed for creating complex, rectangular mazes. It exports mazes as SVG files, making them perfect for graphic design applications or even for 3D modeling. This tool stands out for its customization capabilities; it supports various endpoint configurations, allowing for connected or dead-end designs.
 
-.. figure:: /images/demo.svg
-    :width: 100%
-
-.. code-block:: console
-
-    python generate_maze.py -x 160 -y 160 -f 2 -m w/3 -m e/3 -m nw/3/2 -c c/nw/3/2 -m ne/3/2 -c c/ne/3/2 -m se/3/2 -c c/se/3/2 -m sw/3/2 -c c/sw/3/2 -c ^m/w/3 -c ^m/e/3 -b nw/8/8 -m sw/5/8 -c dv/c/5x20/5,0 -b ne/3x10/-5,0 -b se/3x10/-5,0 -o demo.svg
-
-
 Features
 --------
 
@@ -75,6 +67,8 @@ Reference Documentation
     :caption: Reference
 
     command-line
+    examples
+    generate-via-api
 
 Indices and tables
 ------------------

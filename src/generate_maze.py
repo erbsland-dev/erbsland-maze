@@ -9,7 +9,7 @@ from erbsland_maze import (
     SvgUnit,
     SvgZeroPoint,
     Generator,
-    GraphicalLayout,
+    SvgLayout,
     Parity,
     Modifier,
     PathEnd,
@@ -20,6 +20,7 @@ from erbsland_maze import (
     FrameModifier,
     BlankModifier,
     GeneratorSetup,
+    SvgSetup,
 )
 
 
@@ -35,7 +36,7 @@ class CommandLineTool:
     def run(self) -> None:
         self.read_command_line()
         try:
-            self.generator.generate_and_save_as_svg(self.output_path)
+            self.generator.generate_and_save(self.output_path)
         except ModifierError as error:
             raise UserError(f"Your modifier '{error.modifier}' caused the following problem: {error}") from error
         except GeneratorError as error:
@@ -168,6 +169,11 @@ class CommandLineTool:
             action="store_true",
             help="Try to ignore all errors and produce an output anyway for debugging purposes.",
         )
+        parser.add_argument(
+            "--layout-only",
+            action="store_true",
+            help="Only prepare the rooms and save the layout of the maze for debugging purposes.",
+        )
         parser.epilog = """\
             About Modifiers Definitions:
             
@@ -224,7 +230,7 @@ class CommandLineTool:
                     raise UserError(f"There was a problem with the {index+1}. end point you specified: {error}")
             if connected_end_points < 2:
                 raise UserError("You must specify at least two connected end points that are no dead-ends.")
-        graphical_layout = GraphicalLayout(
+        svg_setup = SvgSetup(
             width=float(args.width),
             width_parity=Parity(args.width_parity),
             height=float(args.height),
@@ -236,6 +242,7 @@ class CommandLineTool:
             svg_dpi=float(args.svg_dpi),
             svg_zero=svg_zero_point,
         )
+        svg_layout = SvgLayout(svg_setup)
         self.output_path = Path(args.output)
         modifiers: list[Modifier] = []
         if args.add_merge:
@@ -260,14 +267,15 @@ class CommandLineTool:
                 try:
                     modifiers.append(ClosingModifier.from_text(parameter))
                 except ValueError as error:
-                    raise UserError(f"There was a problem with your {index + 1}. blank modifier: {error}") from error
+                    raise UserError(f"There was a problem with your {index + 1}. closing modifier: {error}") from error
         setup = GeneratorSetup(
             path_ends=path_ends,
             modifiers=modifiers,
             verbose=not args.silent,
             ignore_errors=args.ignore_errors,
+            layout_only=args.layout_only,
         )
-        self.generator = Generator(graphical_layout, setup)
+        self.generator = Generator(svg_layout, setup)
 
 
 def main():

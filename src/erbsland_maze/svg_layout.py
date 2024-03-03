@@ -1,5 +1,6 @@
-#  Copyright © 2003-2024 Tobias Erbsland. Web: https://erbsland.dev/
+#  Copyright © 2024 Tobias Erbsland. Web: https://erbsland.dev/
 #  SPDX-License-Identifier: GPL-3.0-or-later
+
 from colorsys import hsv_to_rgb
 from math import floor
 from pathlib import Path
@@ -7,98 +8,47 @@ from typing import Tuple
 
 import cairo
 
-from .direction import Direction
-from .line import Line
 from .parity import Parity
+from .svg_setup import SvgSetup
+from .svg_unit import SvgUnit
+from .svg_zero_point import SvgZeroPoint
+from .room_size import RoomSize
+from .room_location import RoomLocation
+from .direction import Direction
+from .layout import Layout
+from .line import Line
 from .point import Point
 from .poly_line import PolyLine
 from .rectangle import Rectangle
 from .room import Room
-from .room_location import RoomLocation
-from .room_size import RoomSize
 from .size import Size
-from .svg_unit import SvgUnit
-from .svg_zero_point import SvgZeroPoint
 from .wall import Wall
 from .wall_points import WallPoints
 
 
-class GraphicalLayout:
+class SvgLayout(Layout):
     """
-    The graphical layout for the maze.
+    An SVG layout for the maze.
 
-    This instance defines how the generated maze is rendered into the SVG file. By setting the individual sizes
-    it also defines the dimensions of the maze, how many rooms it has.
+    This instance defines how the generated maze is rendered into the SVG file. By setting the individual dimensions,
+    it also defines the number of rooms in the maze.
     """
 
-    def __init__(
-        self,
-        width: float,
-        height: float,
-        wall_thickness: float,
-        side_length: float,
-        width_parity: Parity = Parity.ODD,
-        height_parity: Parity = Parity.ODD,
-        start_end_mark: bool = True,
-        svg_unit: SvgUnit = SvgUnit.MM,
-        svg_dpi: float = 96.0,
-        svg_zero: SvgZeroPoint = SvgZeroPoint.CENTER,
-        svg_background: bool = True,
-    ):
+    def __init__(self, setup: SvgSetup):
         """
-        Create a new graphical layout instance.
+        Create a new SVG layout instance.
 
-        :param width: The width of the maze in mm.
-        :param height: The height of the maze in mm.
-        :param wall_thickness: The thickness of the walls in mm.
-        :param side_length: The side length of a room, *including* the wall thickness, in mm.
-        :param start_end_mark: If the start and end room shall be marked with a red and blue rectangle.
-        :param svg_unit: The unit for the generated SVG file.
-        :param svg_dpi: In case of PX unit, the DPI value to convert the MM values into PX.
-        :param svg_zero: Select where the zero point of the maze shall be placed.
+        :param setup: The setup parameters for the SVG layout.
         """
-        if not isinstance(width, float) or width < 40.0:
-            raise ValueError("`width` must be a float, larger than 40.0.")
-        if not isinstance(height, float) or height < 40.0:
-            raise ValueError("`height` must be a float, larger than 40.0.")
-        if not isinstance(wall_thickness, float) or wall_thickness < 0.1:
-            raise ValueError("`wall_thickness` must be a float, larger than 0.1.")
-        if not isinstance(side_length, float) or side_length < 2:
-            raise ValueError("`side_length` must be a float, larger than 2.0.")
-        if not isinstance(width_parity, Parity):
-            raise ValueError("`width_parity` has the wrong type")
-        if not isinstance(height_parity, Parity):
-            raise ValueError("`height_parity` has the wrong type")
-        if not isinstance(svg_unit, SvgUnit):
-            raise ValueError("`svg_unit` has the wrong type")
-        if not isinstance(svg_dpi, float) or svg_dpi < 60 or svg_dpi > 10_000:
-            raise ValueError("`svg_dpi` must be a float, between 60 and 10'000.")
-        if not isinstance(svg_zero, SvgZeroPoint):
-            raise ValueError("`svg_zero` has the wrong type")
-        if not isinstance(svg_background, bool):
-            raise ValueError("`svg_background` has the wrong type.")
-        self.width: float = width
-        self.height: float = height
-        self.wall_thickness: float = wall_thickness
-        self.side_length: float = side_length
-        self.width_parity: Parity = width_parity
-        self.height_parity: Parity = height_parity
-        self.start_end_mark: bool = start_end_mark
-        self.svg_unit: SvgUnit = svg_unit
-        self.svg_dpi: float = svg_dpi
-        self.svg_zero: SvgZeroPoint = svg_zero
-        self.svg_background: bool = svg_background
-        if (side_length - wall_thickness) < 0.5:
-            raise ValueError(
-                "`side_length` and `wall_thickness` do not match, the resulting path width is smaller than 0.5 mm."
-            )
+        self.setup = setup
         #
+        self._side_length: float = 0.0
         self._size = RoomSize()
         self._offset: Point = Point()
         self._x_values: list[float] = []
         self._y_values: list[float] = []
-        if svg_unit == SvgUnit.PX:
-            self._svg_scale_factor = 1.0 / (25.4 / svg_dpi)
+        if self.setup.svg_unit == SvgUnit.PX:
+            self._svg_scale_factor = 1.0 / (25.4 / self.setup.svg_dpi)
         else:
             self._svg_scale_factor = 1.0
         self._svg_offset: Point = Point()
@@ -112,46 +62,47 @@ class GraphicalLayout:
         :return: A count.
         """
         if parity == Parity.NONE:
-            result = int(floor(length / self.side_length))
+            result = int(floor(length / self.setup.side_length))
         else:
-            result = int(floor(length / self.side_length / 2)) * 2
+            result = int(floor(length / self.setup.side_length / 2)) * 2
             if parity == Parity.ODD:
                 result += 1
         return result
 
     def initialize(self) -> RoomSize:
-        """
-        Initialize the layout and calculate the size of the maze to generate.
-
-        :return: The size of the maze in rooms.
-        """
-        x_count = self._count_with_parity(self.width, self.width_parity)
-        y_count = self._count_with_parity(self.height, self.height_parity)
-        if x_count < 10 or x_count > 10_000:
+        x_count = self._count_with_parity(self.setup.width, self.setup.width_parity)
+        y_count = self._count_with_parity(self.setup.height, self.setup.height_parity)
+        if x_count < 5 or x_count > 10_000:
             raise ValueError(
-                f"The number of generated rooms in the width ({x_count}) is outside valid limits (10-10'000)."
+                f"The number of generated rooms in the width ({x_count}) is outside valid limits (5-10'000)."
             )
-        if x_count < 10 or x_count > 10_000:
+        if x_count < 5 or x_count > 10_000:
             raise ValueError(
-                f"The number of generated rooms in the height ({y_count}) is outside valid limits (10-10'000)."
+                f"The number of generated rooms in the height ({y_count}) is outside valid limits (5-10'000)."
             )
-        x_length = self.width / x_count
-        y_length = self.height / y_count
-        self.side_length = min(x_length, y_length)
+        x_length = self.setup.width / x_count
+        y_length = self.setup.height / y_count
+        self._side_length = min(x_length, y_length)
         self._size = RoomSize(int(x_count), int(y_count))
         self._offset = Point(
-            (self.width - (self.side_length * self._size.width)) / 2,
-            (self.height - (self.side_length * self._size.height)) / 2,
+            (self.setup.width - (self._side_length * self._size.width)) / 2,
+            (self.setup.height - (self._side_length * self._size.height)) / 2,
         )
-        self._x_values = list([self._offset.x + (x * self.side_length) for x in range(self._size.width)])
-        self._y_values = list([self._offset.y + (y * self.side_length) for y in range(self._size.height)])
+        self._x_values = list([self._offset.x + (x * self._side_length) for x in range(self._size.width)])
+        self._y_values = list([self._offset.y + (y * self._side_length) for y in range(self._size.height)])
         self._x_values[0] = 0.0
         self._y_values[0] = 0.0
-        self._x_values.append(self.width)
-        self._y_values.append(self.height)
-        if self.svg_zero == SvgZeroPoint.TOP_LEFT:
-            self._svg_offset = Point(-self.width / 2.0, -self.height / 2.0)
+        self._x_values.append(self.setup.width)
+        self._y_values.append(self.setup.height)
+        if self.setup.svg_zero == SvgZeroPoint.TOP_LEFT:
+            self._svg_offset = Point(-self.setup.width / 2.0, -self.setup.height / 2.0)
         return self._size
+
+    def get_dimension_info(self) -> str:
+        return (
+            f"{self.setup.width:0.2f} x {self.setup.height:0.2f} mm / thickness {self.setup.wall_thickness:0.2f} mm / "
+            f"calculated side length: {self._side_length:0.2f} mm"
+        )
 
     def get_location_rectangle(self, location: RoomLocation) -> Rectangle:
         """
@@ -189,35 +140,35 @@ class GraphicalLayout:
         :return: The points at this wall.
         """
         rect = self.get_location_rectangle(wall.location)
-        inset = self.wall_thickness / 2
+        inset = self.setup.wall_thickness / 2
         match wall.direction:
             case Direction.NORTH:
                 return WallPoints(
-                    adjacent1=rect.top_left.moved(x=inset),
-                    inset1=rect.top_left.moved(x=inset, y=inset),
-                    adjacent2=rect.top_right.moved(x=-inset),
-                    inset2=rect.top_right.moved(x=-inset, y=inset),
+                    adjacent1=rect.top_left.translated(x=inset),
+                    inset1=rect.top_left.translated(x=inset, y=inset),
+                    adjacent2=rect.top_right.translated(x=-inset),
+                    inset2=rect.top_right.translated(x=-inset, y=inset),
                 )
             case Direction.EAST:
                 return WallPoints(
-                    adjacent1=rect.top_right.moved(y=inset),
-                    inset1=rect.top_right.moved(x=-inset, y=inset),
-                    adjacent2=rect.bottom_right.moved(y=-inset),
-                    inset2=rect.bottom_right.moved(x=-inset, y=-inset),
+                    adjacent1=rect.top_right.translated(y=inset),
+                    inset1=rect.top_right.translated(x=-inset, y=inset),
+                    adjacent2=rect.bottom_right.translated(y=-inset),
+                    inset2=rect.bottom_right.translated(x=-inset, y=-inset),
                 )
             case Direction.SOUTH:
                 return WallPoints(
-                    adjacent1=rect.bottom_left.moved(x=inset),
-                    inset1=rect.bottom_left.moved(x=inset, y=-inset),
-                    adjacent2=rect.bottom_right.moved(x=-inset),
-                    inset2=rect.bottom_right.moved(x=-inset, y=-inset),
+                    adjacent1=rect.bottom_left.translated(x=inset),
+                    inset1=rect.bottom_left.translated(x=inset, y=-inset),
+                    adjacent2=rect.bottom_right.translated(x=-inset),
+                    inset2=rect.bottom_right.translated(x=-inset, y=-inset),
                 )
             case Direction.WEST:
                 return WallPoints(
-                    adjacent1=rect.top_left.moved(y=inset),
-                    inset1=rect.top_left.moved(x=inset, y=inset),
-                    adjacent2=rect.bottom_left.moved(y=-inset),
-                    inset2=rect.bottom_left.moved(x=inset, y=-inset),
+                    adjacent1=rect.top_left.translated(y=inset),
+                    inset1=rect.top_left.translated(x=inset, y=inset),
+                    adjacent2=rect.bottom_left.translated(y=-inset),
+                    inset2=rect.bottom_left.translated(x=inset, y=-inset),
                 )
 
     @staticmethod
@@ -343,9 +294,6 @@ class GraphicalLayout:
                 ctx.line_to(point.x, point.y)
         if polyline.is_closed:
             ctx.close_path()
-            ctx.fill()
-        else:
-            ctx.stroke()
 
     def _paint_room_mark(self, ctx: cairo.Context, room: Room, color: Tuple[float, float, float]) -> None:
         """
@@ -357,37 +305,37 @@ class GraphicalLayout:
         :return:
         """
         ctx.set_source_rgb(*color)
-        rect = self.get_room_rectangle(room).equally_inset_by(self.wall_thickness + self.wall_thickness * 0.5)
-        rect = self.convert_rect_to_svg(rect)
+        path_width = self._side_length - self.setup.wall_thickness
+        inset = self.setup.wall_thickness / 2
+        if room.size.width > 2 and room.size.height > 2:
+            inset += path_width
+        elif path_width > self.setup.wall_thickness:
+            inset += path_width * 0.2
+        room_rect = self.get_room_rectangle(room)
+        mark_rect = room_rect.equally_inset_by(inset)
+        rect = self.convert_rect_to_svg(mark_rect)
         ctx.rectangle(rect.pos.x, rect.pos.y, rect.size.width, rect.size.height)
         ctx.fill()
 
-    def save_svg(self, file_path: Path, rooms: list[Room], path_end_rooms: list[Room]) -> None:
-        """
-        Save the generated rooms into an SVG file.
-
-        :param file_path: The path for the SVG file.
-        :param rooms: A list of rooms.
-        :param path_end_rooms: The path end rooms to be marked.
-        """
+    def render_image(self, file_path: Path, rooms: list[Room], path_end_rooms: list[Room]) -> None:
         all_room_lines = self.get_all_lines(rooms)
         polylines = PolyLine.from_merged_lines(all_room_lines)
         for polyline in polylines:
             polyline.optimize()
         with cairo.SVGSurface(
             str(file_path),
-            self.convert_value_to_svg(self.width),
-            self.convert_value_to_svg(self.height),
+            self.convert_value_to_svg(self.setup.width),
+            self.convert_value_to_svg(self.setup.height),
         ) as surface:
-            if self.svg_unit == SvgUnit.MM:
+            if self.setup.svg_unit == SvgUnit.MM:
                 surface.set_document_unit(cairo.SVG_UNIT_MM)
             else:
                 surface.set_document_unit(cairo.SVG_UNIT_PX)
             ctx = cairo.Context(surface)
-            if self.svg_background:
+            if self.setup.svg_background:
                 ctx.set_source_rgb(0.9, 0.9, 0.9)
                 pos = self.convert_point_to_svg(Point(0, 0))
-                size = self.convert_size_to_svg(Size(self.width, self.height))
+                size = self.convert_size_to_svg(Size(self.setup.width, self.setup.height))
                 ctx.rectangle(
                     pos.x,
                     pos.y,
@@ -396,9 +344,18 @@ class GraphicalLayout:
                 )
                 ctx.fill()
             ctx.set_source_rgb(0.2, 0.2, 0.2)
+            ctx.set_fill_rule(cairo.FILL_RULE_EVEN_ODD)
             ctx.set_line_width(self.convert_value_to_svg(0.1))
-            for polyline in polylines:
-                self._paint_polyline(ctx, polyline)
+            closed_polylines = [polyline for polyline in polylines if polyline.is_closed]
+            if closed_polylines:
+                for polyline in closed_polylines:
+                    self._paint_polyline(ctx, polyline)
+                ctx.fill()
+            open_polylines = [polyline for polyline in polylines if not polyline.is_closed]
+            if open_polylines:
+                for polyline in open_polylines:
+                    self._paint_polyline(ctx, polyline)
+                    ctx.stroke()
             for index, room in enumerate(path_end_rooms):
-                color = hsv_to_rgb(index / (len(path_end_rooms) + 1), 0.7, 0.7)
+                color = hsv_to_rgb(index / (len(path_end_rooms) + 1), 0.5, 0.8)
                 self._paint_room_mark(ctx, room, color)

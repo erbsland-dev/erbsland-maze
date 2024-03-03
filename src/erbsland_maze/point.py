@@ -16,15 +16,8 @@ class Point:
     y: float = 0.0
     """The y coordinate of the point."""
 
-    def moved(self, x: float = 0.0, y: float = 0.0) -> "Point":
-        """
-        Return a new point that was moved by the given distance.
-
-        :param x: The movement in the X direction.
-        :param y: The movement in the Y direction.
-        :return: A new point that was moved by the given distance.
-        """
-        return Point(self.x + x, self.y + y)
+    def __repr__(self):
+        return f"Point({self.x:0.2f},{self.y:0.2f})"
 
     def __add__(self, other: "Point") -> "Point":
         if not isinstance(other, Point):
@@ -49,3 +42,13 @@ class Point:
         x1 = int(round(self.x * 1_000_000))
         y1 = int(round(self.y * 1_000_000))
         return hash((x1, y1))
+
+    def translated(self, x: float = 0.0, y: float = 0.0) -> "Point":
+        """
+        Return a new point that was translated by the given distance.
+
+        :param x: The movement in the X direction.
+        :param y: The movement in the Y direction.
+        :return: A new point that was translated by the given distance.
+        """
+        return Point(self.x + x, self.y + y)

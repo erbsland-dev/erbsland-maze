@@ -34,7 +34,7 @@ class RoomInsets:
             value = int(text[0], base=10)
         except ValueError:
             raise ValueError("The given text is not a valid inset.")
-        if value < 1 or value >= 10_000:
+        if value < 0 or value >= 10_000:
             raise ValueError("The given text is not a valid inset.")
         return value
 

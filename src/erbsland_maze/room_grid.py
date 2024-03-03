@@ -51,6 +51,10 @@ class RoomGrid:
         """
         return key in self._room_map
 
+    @property
+    def size(self) -> RoomSize:
+        return self._location_grid.size
+
     def get_all_locations(self) -> list[RoomLocation]:
         """
         Get all room locations.
@@ -146,7 +150,7 @@ class RoomGrid:
         """
         Merge this area and all rooms in it into one single room.
 
-        :param grid: The room grid that shall be merged..
+        :param grid: The room grid that shall be merged.
         """
         if grid.size.width < 2 or grid.size.height < 2:
             raise ValueError("Merged area must be at least 2x2 units.")
@@ -167,7 +171,7 @@ class RoomGrid:
                 room.type = merged_room.type
             if room.path_id == 0 and merged_room.path_id > 0:
                 room.path_id = merged_room.path_id
-        # Keep all connection that connect the room edges.
+        # Keep all connections that connect the room edges.
         connections_to_keep: set[RoomConnection] = set()
         for c in all_connections:
             ra, rb = c.a.room, c.b.room

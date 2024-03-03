@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import sys
 from pathlib import Path
 
 try:
@@ -22,21 +23,25 @@ except ImportError:
 
 base_dir = Path(__file__).parent.parent
 about = {}
-exec((base_dir / "src" / "erbsland_maze" / "_about.py").read_text(), about)
+sys.path.insert(0, str(base_dir / "src"))
+
 
 # -- Project information -----------------------------------------------------
 
 project = "Erbsland Maze"
-copyright = about["COPYRIGHT"]
-author = about["AUTHOR"]
-version = release = about["VERSION"]
+if True:
+    import erbsland_maze.about
+
+    copyright = erbsland_maze.about.COPYRIGHT
+    author = erbsland_maze.about.AUTHOR
+    version = release = erbsland_maze.about.VERSION
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = ["sphinx.ext.autodoc"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
