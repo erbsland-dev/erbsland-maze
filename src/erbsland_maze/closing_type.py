@@ -26,22 +26,22 @@ class ClosingType(enum.Enum):
     @classmethod
     def alias_map(cls) -> dict[str, str]:
         return {
-            "c": "CORNER_PATHS",
-            "cnw": "CORNER_TOP_LEFT",
-            "cne": "CORNER_TOP_RIGHT",
-            "cse": "CORNER_BOTTOM_RIGHT",
-            "csw": "CORNER_BOTTOM_LEFT",
-            "dw": "DIRECTION_WEST",
-            "dn": "DIRECTION_NORTH",
-            "de": "DIRECTION_EAST",
-            "ds": "DIRECTION_SOUTH",
-            "dh": "DIRECTION_HORIZONTAL",
-            "dv": "DIRECTION_VERTICAL",
-            "m": "MIDDLE_PATHS",
-            "mw": "MIDDLE_WEST",
-            "mn": "MIDDLE_NORTH",
-            "me": "MIDDLE_EAST",
-            "ms": "MIDDLE_SOUTH",
+            "c": "corner_paths",
+            "cnw": "corner_top_left",
+            "cne": "corner_top_right",
+            "cse": "corner_bottom_right",
+            "csw": "corner_bottom_left",
+            "dw": "direction_west",
+            "dn": "direction_north",
+            "de": "direction_east",
+            "ds": "direction_south",
+            "dh": "direction_horizontal",
+            "dv": "direction_vertical",
+            "m": "middle_paths",
+            "mw": "middle_west",
+            "mn": "middle_north",
+            "me": "middle_east",
+            "ms": "middle_south",
         }
 
     @classmethod
@@ -49,7 +49,7 @@ class ClosingType(enum.Enum):
         alias_map = cls.alias_map()
         if name in alias_map:
             name = alias_map[name]
-        return cls[name]
+        return cls(name)
 
     @classmethod
     def all_names(cls) -> list[str]:
@@ -65,6 +65,6 @@ class ClosingType(enum.Enum):
             raise ValueError("The closing type parameter is empty.")
         try:
             return cls.from_name(text)
-        except KeyError:
+        except KeyError or ValueError:
             valid = ", ".join(cls.all_names())
             raise ValueError(f"The text '{text}' is not a valid closing type. Valid values are {valid}.")

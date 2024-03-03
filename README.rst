@@ -3,6 +3,13 @@ Welcome to Erbsland Maze
 
 Erbsland Maze is a sophisticated, open-source maze generator designed for creating complex, rectangular mazes. It exports mazes as SVG files, making them perfect for graphic design applications or even for 3D modeling. This tool stands out for its customization capabilities; it supports various endpoint configurations, allowing for connected or dead-end designs.
 
+.. image:: docs/images/demo.svg
+    :width: 100%
+
+.. code-block:: console
+
+    python generate_maze.py -x 160 -y 160 -f 2 -m w/3 -m e/3 -m nw/3/2 -c c/nw/3/2 -m ne/3/2 -c c/ne/3/2 -m se/3/2 -c c/se/3/2 -m sw/3/2 -c c/sw/3/2 -c ^m/w/3 -c ^m/e/3 -b nw/8/8 -m sw/5/8 -c dv/c/5x20/5,0 -b ne/3x10/-5,0 -b se/3x10/-5,0 -o demo.svg
+
 Features
 --------
 
@@ -29,34 +36,39 @@ Quickstart Guide
 
 Follow these steps to get started with Erbsland Maze:
 
-1.  Clone the repository and navigate into it:
+#.  Clone the repository and navigate into it:
 
     .. code-block:: console
-        git clone https://erbsland-dev.github.io/erbsland-maze/
+
+        git clone https://github.com/erbsland-dev/erbsland-maze/
         cd erbsland-maze
 
-2.  Create and activate a new Python virtual environment:
+#.  Create and activate a new Python virtual environment:
 
     .. code-block:: console
+
         python3.12 -m venv venv
         source venv/bin/activate
 
-3.  Install `pycairo`:
+#.  Install `pycairo`:
 
     .. code-block:: console
+
         pip install pycairo
 
-4.  Generate your first maze:
+#.  Generate your first maze:
 
     .. code-block:: console
+
         cd src
         python generate_maze.py -x 100 -y 100 -o maze.svg
 
     This command creates a `maze.svg` file in the `src` directory with your newly generated maze.
 
-5.  For additional command-line options and configurations:
+#.  For additional command-line options and configurations:
 
     .. code-block:: console
+
         python generate_maze.py --help
 
 Documentation

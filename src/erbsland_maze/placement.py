@@ -134,16 +134,16 @@ class Placement(enum.StrEnum):
     @classmethod
     def alias_map(cls) -> dict[str, str]:
         return {
-            "w": "LEFT",
-            "nw": "TOP_LEFT",
-            "n": "TOP",
-            "ne": "TOP_RIGHT",
-            "e": "RIGHT",
-            "se": "BOTTOM_RIGHT",
-            "s": "BOTTOM",
-            "sw": "BOTTOM_LEFT",
-            "c": "CENTER",
-            "r": "RANDOM",
+            "w": "left",
+            "nw": "top_left",
+            "n": "top",
+            "ne": "top_right",
+            "e": "right",
+            "se": "bottom_right",
+            "s": "bottom",
+            "sw": "bottom_left",
+            "c": "center",
+            "r": "random",
         }
 
     @classmethod
@@ -151,7 +151,7 @@ class Placement(enum.StrEnum):
         alias_map = cls.alias_map()
         if name in alias_map:
             name = alias_map[name]
-        return cls[name]
+        return cls(name)
 
     @classmethod
     def all_names(cls) -> list[str]:
@@ -167,6 +167,6 @@ class Placement(enum.StrEnum):
             raise ValueError("The placement parameter is empty.")
         try:
             return cls.from_name(text)
-        except KeyError:
+        except KeyError or ValueError:
             valid = ", ".join(cls.all_names())
             raise ValueError(f"The text '{text}' is not a valid placement name. Valid values are {valid}.")

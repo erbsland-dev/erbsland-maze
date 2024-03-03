@@ -386,11 +386,13 @@ class GraphicalLayout:
             ctx = cairo.Context(surface)
             if self.svg_background:
                 ctx.set_source_rgb(0.9, 0.9, 0.9)
+                pos = self.convert_point_to_svg(Point(0, 0))
+                size = self.convert_size_to_svg(Size(self.width, self.height))
                 ctx.rectangle(
-                    self.convert_value_to_svg(0.0),
-                    self.convert_value_to_svg(0.0),
-                    self.convert_value_to_svg(self.width),
-                    self.convert_value_to_svg(self.height),
+                    pos.x,
+                    pos.y,
+                    size.width,
+                    size.height,
                 )
                 ctx.fill()
             ctx.set_source_rgb(0.2, 0.2, 0.2)
