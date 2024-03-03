@@ -1,5 +1,6 @@
 .idea
-*.svg
+/*.svg
+/src/*.svg
 .venv
 __pycache__
 .DStore
