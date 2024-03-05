@@ -21,6 +21,7 @@ from erbsland_maze import (
     BlankModifier,
     GeneratorSetup,
     SvgSetup,
+    SvgFillMode,
 )
 
 
@@ -116,7 +117,7 @@ class CommandLineTool:
             action="append",
             help="Specify two or more end points in the format '<placement>[/<offset>]'.",
         )
-        parity_choices = list(x.value for x in Parity)
+        parity_choices = list(str(x) for x in Parity)
         parser.add_argument(
             "--width-parity",
             choices=parity_choices,
@@ -173,6 +174,13 @@ class CommandLineTool:
             "--layout-only",
             action="store_true",
             help="Only prepare the rooms and save the layout of the maze for debugging purposes.",
+        )
+        parser.add_argument(
+            "-i",
+            "--fill-mode",
+            choices=SvgFillMode.get_all_names(),
+            default="stretch_edge",
+            help="This option controls how the rooms are distributed in the specified canvas size.",
         )
         parser.epilog = """\
             About Modifiers Definitions:
@@ -237,6 +245,7 @@ class CommandLineTool:
             height_parity=Parity(args.height_parity),
             wall_thickness=float(args.thickness),
             side_length=float(args.length),
+            fill_mode=SvgFillMode.from_text(args.fill_mode),
             start_end_mark=(not args.no_marks),
             svg_unit=svg_unit,
             svg_dpi=float(args.svg_dpi),

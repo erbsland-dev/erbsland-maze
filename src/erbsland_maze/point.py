@@ -2,6 +2,7 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 
 from dataclasses import dataclass
+from typing import Self
 
 
 @dataclass(order=True, frozen=True)
@@ -19,15 +20,18 @@ class Point:
     def __repr__(self):
         return f"Point({self.x:0.2f},{self.y:0.2f})"
 
-    def __add__(self, other: "Point") -> "Point":
+    def __add__(self, other: Self) -> Self:
         if not isinstance(other, Point):
             raise ValueError("Can only add points.")
         return Point(self.x + other.x, self.y + other.y)
 
-    def __sub__(self, other: "Point") -> "Point":
+    def __sub__(self, other: Self) -> Self:
         if not isinstance(other, Point):
             raise ValueError("Can only subtract points.")
         return Point(self.x - other.x, self.y - other.y)
+
+    def __neg__(self) -> Self:
+        return Point(-self.x, -self.y)
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, Point):

@@ -77,7 +77,7 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. note::
 
-        If the maze's specified width and height do not proportionately match the room length set by this option, the outer rooms will be adjusted in size to ensure the entire area is filled.
+        If the maze's specified width and height do not proportionately match the room length set by this option, by default, the outer rooms will be adjusted in size to ensure the entire area is filled. To change this behaviour, see :option:`--fill-mode`.
 
     .. code-block:: console
 
@@ -85,6 +85,44 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. figure:: /images/example_cmd_length_3.svg
         :width: 210px
+
+.. option:: -i <fill mode>, --fill-mode <fill mode>
+
+    This parameters controls how the rooms are distributed in the canvas defined with :option:`--width` and :option:`--height`. There are several fill modes available, explained in the following table:
+
+    .. list-table::
+        :header-rows: 1
+        :widths: 25, 55, 20
+        :width: 100%
+
+        *   -   Parameter
+            -   Meaning
+            -   Example
+        *   -   ``stretch_edge``, ``se``
+            -   Calculate the best square room size from the side lengths and parity and stretch the rooms at the edges to completely fill the specified width and height.
+            -   .. image:: /images/example_cmd_fill_mode_1.svg
+                    :width: 100px
+        *   -   ``stretch``, ``s``
+            -   Stretch the rooms into rectangles that completely fill the specified width and height.
+            -   .. image:: /images/example_cmd_fill_mode_2.svg
+                    :width: 100px
+        *   -   ``square_top_left``, ``qt``
+            -   Use a square room size that fills at least one dimension perfectly, and align the maze at the top left corner. If the room size doesn't divide the with and height evenly, there will be a gap at the bottom or right side.
+            -   .. image:: /images/example_cmd_fill_mode_3.svg
+                    :width: 100px
+        *   -   ``square_center``, ``q``
+            -   Use a square room size that fills at least one dimension perfectly, and align the maze at the top left corner. If the room size doesn't divide the with and height evenly, there will be a gap around the maze.
+            -   .. image:: /images/example_cmd_fill_mode_4.svg
+                    :width: 100px
+        *   -   ``fixed_top_left``, ``ft``
+            -   Use a square room size with the exact side length as configured and place the maze in the top left corner. If the room size doesn't divide the with and height evenly, there will be a gap at the bottom or right side.
+            -   .. image:: /images/example_cmd_fill_mode_5.svg
+                    :width: 100px
+        *   -   ``fixed_center``, ``f``
+            -   Use a square room size with the exact side length as configured and place the maze in the center. If the room size doesn't divide the with and height evenly, there will be a gap around the maze.
+            -   .. image:: /images/example_cmd_fill_mode_6.svg
+                    :width: 100px
+
 
 .. option:: --width-parity {none,odd,even}
 
@@ -380,7 +418,7 @@ Customize the SVG output of your maze with the following options, allowing for a
         -   Meaning
     *   -   ``center``
         -   Places the maze's center at the middle of the canvas, ensuring all SVG coordinates are positive from the document's top-left corner. This is the default and best choice for viewing the SVG or using it for designs, web or print.
-   *    -   ``top_left``
+    *   -   ``top_left``
         -   Moves the zero point to the top-left corner of the document, beneficial for workflows requiring the maze's center at the document's origin, though it may not display correctly in all viewers.
 
 Other Options

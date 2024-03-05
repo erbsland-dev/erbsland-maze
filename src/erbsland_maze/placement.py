@@ -156,7 +156,7 @@ class Placement(enum.StrEnum):
     @classmethod
     def all_names(cls) -> list[str]:
         result = list(cls.alias_map().keys())
-        result.extend([x.value for x in cls])
+        result.extend([str(x) for x in cls])
         result.sort()
         return result
 

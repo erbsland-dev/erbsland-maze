@@ -25,6 +25,12 @@ This chapter showcases a selection of examples, each accompanied by the specific
 .. figure:: /images/example_3.svg
     :width: 400px
 
+.. code-block:: console
+
+    generate_maze.py -x 125 -y 255 -l 5.0 -t 2.5 -f 0,0,2,0 -c ^mn/s/3/3 -c ^ms/n/5/3 -e n/8 -m n/5/8 -c ^m/n/5/8 -e s/0/x -m s/3 -e s/-5,0/x -m s/3/-5,0 -e s/-10,0/x -m s/3/-10,0 -e s/5,0 -m s/3/5,0 -e s/10,0/x -m s/3/10,0 -c c/s/3/-10,0 -c c/s/3/-5,0 -c c/s/3 -c c/s/3/5,0 -c c/s/3/10,0
+
+.. figure:: /images/example_4.svg
+    :width: 300px
 
 From the Documentation
 ----------------------

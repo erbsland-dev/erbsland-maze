@@ -2,18 +2,11 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 
 from colorsys import hsv_to_rgb
-from math import floor
 from pathlib import Path
 from typing import Tuple
 
 import cairo
 
-from .parity import Parity
-from .svg_setup import SvgSetup
-from .svg_unit import SvgUnit
-from .svg_zero_point import SvgZeroPoint
-from .room_size import RoomSize
-from .room_location import RoomLocation
 from .direction import Direction
 from .layout import Layout
 from .line import Line
@@ -21,7 +14,12 @@ from .point import Point
 from .poly_line import PolyLine
 from .rectangle import Rectangle
 from .room import Room
+from .room_location import RoomLocation
+from .room_size import RoomSize
 from .size import Size
+from .svg_setup import SvgSetup
+from .svg_unit import SvgUnit
+from .svg_zero_point import SvgZeroPoint
 from .wall import Wall
 from .wall_points import WallPoints
 
@@ -42,8 +40,8 @@ class SvgLayout(Layout):
         """
         self.setup = setup
         #
-        self._side_length: float = 0.0
-        self._size = RoomSize()
+        self._room_size = Size(0, 0)
+        self._maze_size = RoomSize()
         self._offset: Point = Point()
         self._x_values: list[float] = []
         self._y_values: list[float] = []
@@ -53,55 +51,86 @@ class SvgLayout(Layout):
             self._svg_scale_factor = 1.0
         self._svg_offset: Point = Point()
 
-    def _count_with_parity(self, length: float, parity: Parity) -> int:
+    def _check_count_limits(self, count, dimension):
         """
-        Get a room round for the given length, using a parity.
+        Check if the given count is within the limits
 
-        :param length: The length.
-        :param parity: The parity.
-        :return: A count.
+        :param count: The count.
+        :param dimension: The dimension for the error message.
         """
-        if parity == Parity.NONE:
-            result = int(floor(length / self.setup.side_length))
-        else:
-            result = int(floor(length / self.setup.side_length / 2)) * 2
-            if parity == Parity.ODD:
-                result += 1
+        if count < 5 or count > 10_000:
+            raise ValueError(
+                f"The number of generated rooms in the {dimension} ({count}) is outside valid limits (5-10'000)."
+            )
+
+    @staticmethod
+    def _get_edge_coordinates(
+        side_length: float, count: int, offset: float = 0, stretch_to_length: float = None
+    ) -> list[float]:
+        """
+        Get a list with all the edge coordinates for one axis.
+
+        :param side_length: The side length of the room in this axis.
+        :param count: The number of rooms.
+        :param offset: An optional offset to apply.
+        :param stretch_to_length: If supplied, the first and last value are stretched to fill the whole length.
+        :return: A list of edge coordinates.
+        """
+        result = list([offset + (x * side_length) for x in range(count + 1)])
+        if stretch_to_length is not None:
+            result[0] = 0.0
+            result[-1] = stretch_to_length
         return result
 
-    def initialize(self) -> RoomSize:
-        x_count = self._count_with_parity(self.setup.width, self.setup.width_parity)
-        y_count = self._count_with_parity(self.setup.height, self.setup.height_parity)
-        if x_count < 5 or x_count > 10_000:
-            raise ValueError(
-                f"The number of generated rooms in the width ({x_count}) is outside valid limits (5-10'000)."
-            )
-        if x_count < 5 or x_count > 10_000:
-            raise ValueError(
-                f"The number of generated rooms in the height ({y_count}) is outside valid limits (5-10'000)."
-            )
-        x_length = self.setup.width / x_count
-        y_length = self.setup.height / y_count
-        self._side_length = min(x_length, y_length)
-        self._size = RoomSize(int(x_count), int(y_count))
-        self._offset = Point(
-            (self.setup.width - (self._side_length * self._size.width)) / 2,
-            (self.setup.height - (self._side_length * self._size.height)) / 2,
+    def _get_area_coordinates(
+        self, room_size: Size, room_count: RoomSize, offset: Point = Point(), stretch_to_size: bool = False
+    ) -> Tuple[list[float], list[float]]:
+        """
+        Get two lists with the edge coordinates that define the edges of the rooms in the given area.
+
+        :param room_size: The size of the individual rooms.
+        :param room_count: The number of rooms.
+        :param offset: An offset to be applied to the top left corner.
+        :param stretch_to_size: If the first and last edge values are stretched to completely fill the maze.
+        :return: Two lists with the edge coordinates for both axes.
+        """
+        return (
+            self._get_edge_coordinates(
+                room_size.width, room_count.width, offset.x, self.setup.width if stretch_to_size else None
+            ),
+            self._get_edge_coordinates(
+                room_size.height, room_count.height, offset.y, self.setup.height if stretch_to_size else None
+            ),
         )
-        self._x_values = list([self._offset.x + (x * self._side_length) for x in range(self._size.width)])
-        self._y_values = list([self._offset.y + (y * self._side_length) for y in range(self._size.height)])
-        self._x_values[0] = 0.0
-        self._y_values[0] = 0.0
-        self._x_values.append(self.setup.width)
-        self._y_values.append(self.setup.height)
+
+    def initialize(self) -> RoomSize:
+        exact_size = Size(self.setup.side_length, self.setup.side_length)
+        self._maze_size = self.setup.get_size().count_with_parity(
+            exact_size, self.setup.width_parity, self.setup.height_parity
+        )
+        self._check_count_limits(self._maze_size.width, "width")
+        self._check_count_limits(self._maze_size.height, "height")
+        if self.setup.fill_mode.does_scale_room():
+            self._room_size = self.setup.get_size() / self._maze_size
+            if self.setup.fill_mode.does_proportionally_scale_room():
+                self._room_size = self._room_size.min_square()
+        else:
+            self._room_size = exact_size
+        if self.setup.fill_mode.does_center_rooms():
+            offset = self.setup.get_size().get_center_offset(self._room_size * self._maze_size)
+        else:
+            offset = Point()
+        self._x_values, self._y_values = self._get_area_coordinates(
+            self._room_size, self._maze_size, offset, stretch_to_size=self.setup.fill_mode.does_stretch_edge()
+        )
         if self.setup.svg_zero == SvgZeroPoint.TOP_LEFT:
-            self._svg_offset = Point(-self.setup.width / 2.0, -self.setup.height / 2.0)
-        return self._size
+            self._svg_offset = -(self.setup.get_size().get_center_point())
+        return self._maze_size
 
     def get_dimension_info(self) -> str:
         return (
             f"{self.setup.width:0.2f} x {self.setup.height:0.2f} mm / thickness {self.setup.wall_thickness:0.2f} mm / "
-            f"calculated side length: {self._side_length:0.2f} mm"
+            f"calculated room size: {self._room_size.width} x {self._room_size.height} mm"
         )
 
     def get_location_rectangle(self, location: RoomLocation) -> Rectangle:
@@ -305,7 +334,7 @@ class SvgLayout(Layout):
         :return:
         """
         ctx.set_source_rgb(*color)
-        path_width = self._side_length - self.setup.wall_thickness
+        path_width = max(self._room_size.width, self._room_size.height) - self.setup.wall_thickness
         inset = self.setup.wall_thickness / 2
         if room.size.width > 2 and room.size.height > 2:
             inset += path_width

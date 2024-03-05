@@ -193,6 +193,9 @@ This project currently provides only built-in support to generate SVG files usin
 .. autoclass:: Parity
     :members:
 
+.. autoclass:: SvgFillMode
+    :members:
+
 .. autoclass:: SvgUnit
     :members:
 

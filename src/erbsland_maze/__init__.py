@@ -29,6 +29,7 @@ from .room_location import RoomLocation
 from .room_offset import RoomOffset
 from .room_size import RoomSize
 from .room_type import RoomType
+from .svg_fill_mode import SvgFillMode
 from .svg_layout import SvgLayout
 from .svg_setup import SvgSetup
 from .svg_unit import SvgUnit

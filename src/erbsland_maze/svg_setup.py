@@ -3,12 +3,14 @@
 
 from dataclasses import dataclass
 
-from .svg_zero_point import SvgZeroPoint
-from .svg_unit import SvgUnit
 from .parity import Parity
+from .size import Size
+from .svg_fill_mode import SvgFillMode
+from .svg_unit import SvgUnit
+from .svg_zero_point import SvgZeroPoint
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True)
 class SvgSetup:
     """
     The setup for the SVG layout.
@@ -25,6 +27,9 @@ class SvgSetup:
 
     side_length: float = 4.0
     """The side length of a room, *including* the wall thickness, in mm."""
+
+    fill_mode: SvgFillMode = SvgFillMode.STRETCH_EDGE
+    """The fill mode used to calculate the room sizes."""
 
     width_parity: Parity = Parity.ODD
     """The parity of the room count in the X axis."""
@@ -47,6 +52,9 @@ class SvgSetup:
     svg_background: bool = True
     """If the SVG background shall be drawn opaque."""
 
+    def get_size(self) -> Size:
+        return Size(self.width, self.height)
+
     def __post_init__(self):
         if not isinstance(self.width, float) or self.width < 1.0:
             raise ValueError("`width` must be a float, larger than 1.0.")
@@ -56,18 +64,20 @@ class SvgSetup:
             raise ValueError("`wall_thickness` must be a float, larger than 0.1.")
         if not isinstance(self.side_length, float) or self.side_length < 1.0:
             raise ValueError("`side_length` must be a float, larger than 1.0.")
+        if not isinstance(self.fill_mode, SvgFillMode):
+            raise TypeError("`fill_mode` must be an instance of SvgFillMode.")
         if not isinstance(self.width_parity, Parity):
-            raise ValueError("`width_parity` has the wrong type")
+            raise TypeError("`width_parity` has the wrong type")
         if not isinstance(self.height_parity, Parity):
-            raise ValueError("`height_parity` has the wrong type")
+            raise TypeError("`height_parity` has the wrong type")
         if not isinstance(self.svg_unit, SvgUnit):
-            raise ValueError("`svg_unit` has the wrong type")
+            raise TypeError("`svg_unit` has the wrong type")
         if not isinstance(self.svg_dpi, float) or self.svg_dpi < 60 or self.svg_dpi > 10_000:
             raise ValueError("`svg_dpi` must be a float, between 60 and 10'000.")
         if not isinstance(self.svg_zero, SvgZeroPoint):
-            raise ValueError("`svg_zero` has the wrong type")
+            raise TypeError("`svg_zero` has the wrong type")
         if not isinstance(self.svg_background, bool):
-            raise ValueError("`svg_background` has the wrong type.")
+            raise TypeError("`svg_background` has the wrong type.")
         if (self.side_length - self.wall_thickness) < 0.5:
             raise ValueError(
                 "`side_length` and `wall_thickness` do not match, the resulting path width is smaller than 0.5 mm."
