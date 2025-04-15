@@ -433,13 +433,13 @@ Customize the SVG output of your maze with the following options, allowing for a
 
     Argument must be in RGB format (e.g. 0.5,0.5,0.5) with all three values being between 0 and 1 inclusive.
 
-    Custom foreground and background example: 
-    .. code-block:: console
+Custom foreground and background example: 
+.. code-block:: console
 
-        generate_maze.py -x 55 -y 55 -t 2 -f 1 -bgc 0.2,0.2,0.2 -fgc 0.45,0.21,0.6
+    generate_maze.py -x 55 -y 55 -t 2 -f 1 -bgc 0.2,0.2,0.2 -fgc 0.45,0.21,0.6
 
-    .. figure:: /images/example_cmd_color_1.svg
-        :width: 275px
+.. figure:: /images/example_cmd_color_1.svg
+    :width: 275px
 
 
 Other Options
