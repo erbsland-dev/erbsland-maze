@@ -51,6 +51,12 @@ class SvgSetup:
 
     svg_background: bool = True
     """If the SVG background shall be drawn opaque."""
+    
+    svg_bg: list
+    """Background color to render the SVG paths."""
+    
+    svg_fg: list
+    """Foreground color to render the SVG paths."""
 
     def get_size(self) -> Size:
         return Size(self.width, self.height)
@@ -67,18 +73,22 @@ class SvgSetup:
         if not isinstance(self.fill_mode, SvgFillMode):
             raise TypeError("`fill_mode` must be an instance of SvgFillMode.")
         if not isinstance(self.width_parity, Parity):
-            raise TypeError("`width_parity` has the wrong type")
+            raise TypeError("`width_parity` has the wrong type.")
         if not isinstance(self.height_parity, Parity):
-            raise TypeError("`height_parity` has the wrong type")
+            raise TypeError("`height_parity` has the wrong type.")
         if not isinstance(self.svg_unit, SvgUnit):
-            raise TypeError("`svg_unit` has the wrong type")
+            raise TypeError("`svg_unit` has the wrong type.")
         if not isinstance(self.svg_dpi, float) or self.svg_dpi < 60 or self.svg_dpi > 10_000:
             raise ValueError("`svg_dpi` must be a float, between 60 and 10'000.")
         if not isinstance(self.svg_zero, SvgZeroPoint):
-            raise TypeError("`svg_zero` has the wrong type")
+            raise TypeError("`svg_zero` has the wrong type.")
         if not isinstance(self.svg_background, bool):
             raise TypeError("`svg_background` has the wrong type.")
         if (self.side_length - self.wall_thickness) < 0.5:
             raise ValueError(
                 "`side_length` and `wall_thickness` do not match, the resulting path width is smaller than 0.5 mm."
             )
+        if not isinstance(self.svg_bg, list) or any(rgb_val < 0 or rgb_val > 1 for rgb_val in self.svg_bg):
+            raise ValueError("`background` must be in RGB format 0.5,0.5,0.5 with all three values being between 0 and 1 inclusive.")
+        if not isinstance(self.svg_fg, list) or any(rgb_val < 0 or rgb_val > 1 for rgb_val in self.svg_fg):
+            raise ValueError("`foreground` must be in RGB format 0.5,0.5,0.5 with all three values being between 0 and 1 inclusive.")

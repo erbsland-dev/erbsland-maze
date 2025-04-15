@@ -389,25 +389,25 @@ Customize the SVG output of your maze with the following options, allowing for a
 
 .. option:: -o <path>, --output <path>
 
-   Designate the filename or path for the generated SVG file. Without specification, the default file name used is ``output.svg``. Both relative and absolute paths are supported.
+    Designate the filename or path for the generated SVG file. Without specification, the default file name used is ``output.svg``. Both relative and absolute paths are supported.
 
 .. option:: --no-marks
 
-   Activating this flag will omit the colored rectangle markers at the path ends. This option is particularly beneficial for integrating the maze generation into automated workflows, where such markers may not be needed.
+    Activating this flag will omit the colored rectangle markers at the path ends. This option is particularly beneficial for integrating the maze generation into automated workflows, where such markers may not be needed.
 
 .. option:: --svg-unit {mm,px}
 
-   Select the unit of measurement for the SVG file's dimensions. By default, ``mm`` (millimeters) is used.
+    Select the unit of measurement for the SVG file's dimensions. By default, ``mm`` (millimeters) is used.
 
-   Note: Switching to ``px`` (pixels) modifies the unit within the SVG file only and does not affect the input dimensions (width, height, or room length), which should always be provided in millimeters.
+    Note: Switching to ``px`` (pixels) modifies the unit within the SVG file only and does not affect the input dimensions (width, height, or room length), which should always be provided in millimeters.
 
 .. option:: --svg-dpi <dpi>
 
-   Define the DPI (dots per inch) for converting millimeter measurements to pixels in the SVG output. The default setting is 96 DPI, and the acceptable range spans from 60 to 10,000 DPI.
+    Define the DPI (dots per inch) for converting millimeter measurements to pixels in the SVG output. The default setting is 96 DPI, and the acceptable range spans from 60 to 10,000 DPI.
 
 .. option:: --svg-zero-point {center,top_left}
 
-   Adjust the origin point of the SVG canvas. By default, the ``center`` option is used.
+    Adjust the origin point of the SVG canvas. By default, the ``center`` option is used.
 
 .. list-table::
     :header-rows: 1
@@ -420,6 +420,27 @@ Customize the SVG output of your maze with the following options, allowing for a
         -   Places the maze's center at the middle of the canvas, ensuring all SVG coordinates are positive from the document's top-left corner. This is the default and best choice for viewing the SVG or using it for designs, web or print.
     *   -   ``top_left``
         -   Moves the zero point to the top-left corner of the document, beneficial for workflows requiring the maze's center at the document's origin, though it may not display correctly in all viewers.
+
+.. option:: -fgc, --foreground <rgb>
+
+    Specify the foreground color for the generated SVG using RGB values. This changes the color of the maze paths. The default value is ``0.9,0.9,0.9``.
+
+    Argument must be in RGB format (e.g. 0.5,0.5,0.5) with all three values being between 0 and 1 inclusive.
+
+.. option:: -bgc, --background <rgb>
+
+    Specify the background color for the generated SVG using RGB values. This changes the color of the maze walls and frame. The default value is ``0.2,0.2,0.2``.
+
+    Argument must be in RGB format (e.g. 0.5,0.5,0.5) with all three values being between 0 and 1 inclusive.
+
+    Custom foreground and background example: 
+    .. code-block:: console
+
+        generate_maze.py -x 55 -y 55 -t 2 -f 1 -bgc 0.2,0.2,0.2 -fgc 0.45,0.21,0.6
+
+    .. figure:: /images/example_cmd_color_1.svg
+        :width: 275px
+
 
 Other Options
 -------------

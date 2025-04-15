@@ -23,7 +23,6 @@ from .svg_zero_point import SvgZeroPoint
 from .wall import Wall
 from .wall_points import WallPoints
 
-
 class SvgLayout(Layout):
     """
     An SVG layout for the maze.
@@ -361,8 +360,9 @@ class SvgLayout(Layout):
             else:
                 surface.set_document_unit(cairo.SVG_UNIT_PX)
             ctx = cairo.Context(surface)
+            
             if self.setup.svg_background:
-                ctx.set_source_rgb(0.9, 0.9, 0.9)
+                ctx.set_source_rgb(*self.setup.svg_bg)
                 pos = self.convert_point_to_svg(Point(0, 0))
                 size = self.convert_size_to_svg(Size(self.setup.width, self.setup.height))
                 ctx.rectangle(
@@ -372,7 +372,7 @@ class SvgLayout(Layout):
                     size.height,
                 )
                 ctx.fill()
-            ctx.set_source_rgb(0.2, 0.2, 0.2)
+            ctx.set_source_rgb(*self.setup.svg_fg)
             ctx.set_fill_rule(cairo.FILL_RULE_EVEN_ODD)
             ctx.set_line_width(self.convert_value_to_svg(0.1))
             closed_polylines = [polyline for polyline in polylines if polyline.is_closed]

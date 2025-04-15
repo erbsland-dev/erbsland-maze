@@ -112,6 +112,24 @@ class CommandLineTool:
             help="Where the center point in the SVG file is placed.",
         )
         parser.add_argument(
+            "-bgc",
+            "--background",
+            type=str,
+            metavar="<rgb>",
+            default="0.9,0.9,0.9",
+            help="The background (maze walls and frame) color to be used when the SVG is being generated. " 
+            "Must be in RGB format 0.5,0.5,0.5 with all three values being between 0 and 1 inclusive.",
+        )
+        parser.add_argument(
+            "-fgc",
+            "--foreground",
+            type=str,
+            metavar="<rgb>",
+            default="0.2,0.2,0.2",
+            help="The foreground (maze path) color to be used when the SVG is being generated. " 
+            "Must be in RGB format 0.5,0.5,0.5 with all three values being between 0 and 1 inclusive.",
+        )
+        parser.add_argument(
             "-e",
             "--end-point",
             action="append",
@@ -250,6 +268,8 @@ class CommandLineTool:
             svg_unit=svg_unit,
             svg_dpi=float(args.svg_dpi),
             svg_zero=svg_zero_point,
+            svg_bg=[float(i) for i in args.background.split(',')],
+            svg_fg=[float(i) for i in args.foreground.split(',')],
         )
         svg_layout = SvgLayout(svg_setup)
         self.output_path = Path(args.output)

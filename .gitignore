@@ -1,6 +1,8 @@
 .idea
 /*.svg
 /src/*.svg
+/src/svg/
+/src/maze_call.sh
 .venv
 __pycache__
 .DStore
