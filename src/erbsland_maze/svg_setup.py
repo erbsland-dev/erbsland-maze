@@ -1,8 +1,9 @@
 #  Copyright © 2024 Tobias Erbsland. Web: https://erbsland.dev/
 #  SPDX-License-Identifier: GPL-3.0-or-later
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
+from .color import Color
 from .parity import Parity
 from .size import Size
 from .svg_fill_mode import SvgFillMode
@@ -52,6 +53,15 @@ class SvgSetup:
     svg_background: bool = True
     """If the SVG background shall be drawn opaque."""
 
+    background_color: Color = field(default_factory=lambda: Color(0.8, 0.8, 0.8, 1.0))
+    """The background color of the SVG."""
+
+    room_color: Color = field(default_factory=lambda: Color(0.2, 0.2, 0.2, 1.0))
+    """The color of the rooms/path."""
+
+    endpoint_colors: list[Color] = field(default_factory=list)
+    """A list of colors for the endpoints to cycle through. Empty means to use the default colors."""
+
     def get_size(self) -> Size:
         return Size(self.width, self.height)
 
@@ -78,6 +88,15 @@ class SvgSetup:
             raise TypeError("`svg_zero` has the wrong type")
         if not isinstance(self.svg_background, bool):
             raise TypeError("`svg_background` has the wrong type.")
+        if not isinstance(self.background_color, Color):
+            raise TypeError("`background_color` has the wrong type.")
+        if not isinstance(self.room_color, Color):
+            raise TypeError("`room_color` has the wrong type.")
+        if not isinstance(self.endpoint_colors, list):
+            raise TypeError("`endpoint_colors` has the wrong type.")
+        for color in self.endpoint_colors:
+            if not isinstance(color, Color):
+                raise TypeError("`endpoint_colors` has an item with the wrong type.")
         if (self.side_length - self.wall_thickness) < 0.5:
             raise ValueError(
                 "`side_length` and `wall_thickness` do not match, the resulting path width is smaller than 0.5 mm."

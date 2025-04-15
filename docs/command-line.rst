@@ -421,6 +421,58 @@ Customize the SVG output of your maze with the following options, allowing for a
     *   -   ``top_left``
         -   Moves the zero point to the top-left corner of the document, beneficial for workflows requiring the maze's center at the document's origin, though it may not display correctly in all viewers.
 
+.. option:: --svg-no-background
+
+    When this flag is set, the generated SVG will not include a background rectangle, resulting in a transparent background.
+
+.. option:: --svg-background-color {color_value}
+
+    Sets the background color of the SVG output. This option takes effect only if the background is enabled (i.e., :option:`--svg-no-background` is not set). The value must be specified using one of the supported color formats listed below.
+
+.. option:: --svg-room-color {color_value}
+
+    Sets the fill color for the maze rooms—the connected paths that form the maze itself. The color must be provided in one of the supported formats shown below.
+
+.. option:: --svg-endpoint-color {color_value}
+
+    Use this option one or more times to define the colors of the maze endpoints in the SVG output. The order of values determines the colors assigned to each endpoint. If fewer colors are provided than endpoints, the list will cycle as needed. Each color value must follow one of the supported formats below.
+
+.. code-block:: console
+
+    generate_maze.py -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000
+
+.. figure:: /images/example_cmd_color_1.svg
+    :width: 300px
+
+Supported Color Formats
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The following color formats are accepted:
+
+**Hexadecimal Notation:**
+
+* ``#RRGGBB``
+* ``#RGB``
+* ``#RRGGBBAA``
+* ``#RGBA``
+
+Each component (``R``, ``G``, ``B``, ``A``) is a hexadecimal digit.
+
+**CSS Color Functions:**
+
+* ``rgb(R,G,B)``
+* ``rgba(R,G,B,A)``
+* ``hsl(H,S%,L%)``
+* ``hsla(H,S%,L%,A)``
+
+Where:
+
+* ``R``, ``G``, ``B`` are integers between 0–255,
+* ``A`` is a floating-point value between 0.0–1.0,
+* ``H`` is a degree value between 0–360,
+* ``S`` and ``L`` are percentages between 0–100 (with a ``%`` suffix).
+
+
 Other Options
 -------------
 

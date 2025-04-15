@@ -7,6 +7,7 @@ from typing import Tuple
 
 import cairo
 
+from . import Color
 from .direction import Direction
 from .layout import Layout
 from .line import Line
@@ -324,7 +325,19 @@ class SvgLayout(Layout):
         if polyline.is_closed:
             ctx.close_path()
 
-    def _paint_room_mark(self, ctx: cairo.Context, room: Room, color: Tuple[float, float, float]) -> None:
+    def _set_color(self, ctx: cairo.Context, color: Color) -> None:
+        """
+        Set the source color from the given color.
+
+        :param ctx: The cairo context.
+        :param color: The color.
+        """
+        if color.a != 1.0:
+            ctx.set_source_rgba(color.r, color.g, color.b, color.a)
+        else:
+            ctx.set_source_rgb(color.r, color.g, color.b)
+
+    def _paint_room_mark(self, ctx: cairo.Context, room: Room, color: Color) -> None:
         """
         Paint a coloured rectangle into the given room to mark it visually.
 
@@ -333,7 +346,7 @@ class SvgLayout(Layout):
         :param color: The color.
         :return:
         """
-        ctx.set_source_rgb(*color)
+        self._set_color(ctx, color)
         path_width = max(self._room_size.width, self._room_size.height) - self.setup.wall_thickness
         inset = self.setup.wall_thickness / 2
         if room.size.width > 2 and room.size.height > 2:
@@ -362,7 +375,7 @@ class SvgLayout(Layout):
                 surface.set_document_unit(cairo.SVG_UNIT_PX)
             ctx = cairo.Context(surface)
             if self.setup.svg_background:
-                ctx.set_source_rgb(0.9, 0.9, 0.9)
+                self._set_color(ctx, self.setup.background_color)
                 pos = self.convert_point_to_svg(Point(0, 0))
                 size = self.convert_size_to_svg(Size(self.setup.width, self.setup.height))
                 ctx.rectangle(
@@ -372,7 +385,7 @@ class SvgLayout(Layout):
                     size.height,
                 )
                 ctx.fill()
-            ctx.set_source_rgb(0.2, 0.2, 0.2)
+            self._set_color(ctx, self.setup.room_color)
             ctx.set_fill_rule(cairo.FILL_RULE_EVEN_ODD)
             ctx.set_line_width(self.convert_value_to_svg(0.1))
             closed_polylines = [polyline for polyline in polylines if polyline.is_closed]
@@ -386,5 +399,8 @@ class SvgLayout(Layout):
                     self._paint_polyline(ctx, polyline)
                     ctx.stroke()
             for index, room in enumerate(path_end_rooms):
-                color = hsv_to_rgb(index / (len(path_end_rooms) + 1), 0.5, 0.8)
+                if self.setup.endpoint_colors:
+                    color = self.setup.endpoint_colors[index % len(self.setup.endpoint_colors)]
+                else:
+                    color = Color.for_endpoint(index, len(path_end_rooms))
                 self._paint_room_mark(ctx, room, color)

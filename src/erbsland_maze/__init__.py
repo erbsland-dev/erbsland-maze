@@ -5,6 +5,7 @@ from .blank_modifier import BlankModifier
 from .closing import Closing
 from .closing_modifier import ClosingModifier
 from .closing_type import ClosingType
+from .color import Color
 from .connection_side import ConnectionSide
 from .corner import Corner
 from .direction import Direction

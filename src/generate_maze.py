@@ -6,22 +6,23 @@ from pathlib import Path
 from typing import Optional
 
 from erbsland_maze import (
+    BlankModifier,
+    ClosingModifier,
+    Color,
+    FrameModifier,
+    Generator,
+    GeneratorError,
+    GeneratorSetup,
+    MergeModifier,
+    Modifier,
+    ModifierError,
+    Parity,
+    PathEnd,
+    SvgFillMode,
+    SvgLayout,
+    SvgSetup,
     SvgUnit,
     SvgZeroPoint,
-    Generator,
-    SvgLayout,
-    Parity,
-    Modifier,
-    PathEnd,
-    GeneratorError,
-    ModifierError,
-    MergeModifier,
-    ClosingModifier,
-    FrameModifier,
-    BlankModifier,
-    GeneratorSetup,
-    SvgSetup,
-    SvgFillMode,
 )
 
 
@@ -110,6 +111,31 @@ class CommandLineTool:
             choices=["center", "top_left"],
             default="center",
             help="Where the center point in the SVG file is placed.",
+        )
+        parser.add_argument(
+            "--svg-no-background",
+            action="store_true",
+            help="If specified, no background is added to the SVG file.",
+        )
+        parser.add_argument(
+            "--svg-background-color",
+            type=str,
+            metavar="<color>",
+            help="The background color for the SVG file. See the documentation for supported color formats.",
+        )
+        parser.add_argument(
+            "--svg-room-color",
+            type=str,
+            metavar="<color>",
+            help="The color for the rooms in the SVG file.",
+        )
+        parser.add_argument(
+            "--svg-endpoint-color",
+            type=str,
+            dest="svg_endpoint_colors",
+            action="append",
+            metavar="<color>",
+            help="The color(s) for the end points in the SVG file.",
         )
         parser.add_argument(
             "-e",
@@ -238,19 +264,41 @@ class CommandLineTool:
                     raise UserError(f"There was a problem with the {index+1}. end point you specified: {error}")
             if connected_end_points < 2:
                 raise UserError("You must specify at least two connected end points that are no dead-ends.")
-        svg_setup = SvgSetup(
-            width=float(args.width),
-            width_parity=Parity(args.width_parity),
-            height=float(args.height),
-            height_parity=Parity(args.height_parity),
-            wall_thickness=float(args.thickness),
-            side_length=float(args.length),
-            fill_mode=SvgFillMode.from_text(args.fill_mode),
-            start_end_mark=(not args.no_marks),
-            svg_unit=svg_unit,
-            svg_dpi=float(args.svg_dpi),
-            svg_zero=svg_zero_point,
-        )
+        svg_setup_args = {
+            "width": float(args.width),
+            "width_parity": Parity(args.width_parity),
+            "height": float(args.height),
+            "height_parity": Parity(args.height_parity),
+            "wall_thickness": float(args.thickness),
+            "side_length": float(args.length),
+            "fill_mode": SvgFillMode.from_text(args.fill_mode),
+            "start_end_mark": (not args.no_marks),
+            "svg_unit": svg_unit,
+            "svg_dpi": float(args.svg_dpi),
+            "svg_zero": svg_zero_point,
+            "svg_background": not args.svg_no_background,
+        }
+        if args.svg_background_color:
+            try:
+                svg_setup_args["background_color"] = Color.from_text(args.svg_background_color)
+            except ValueError as error:
+                raise UserError(f"There was a problem with your SVG background color: {error}") from error
+        if args.svg_room_color:
+            try:
+                svg_setup_args["room_color"] = Color.from_text(args.svg_room_color)
+            except ValueError as error:
+                raise UserError(f"There was a problem with your SVG room color: {error}") from error
+        if args.svg_endpoint_colors:
+            endpoint_colors = []
+            for index, color in enumerate(args.svg_endpoint_colors):
+                try:
+                    endpoint_colors.append(Color.from_text(color))
+                    if len(endpoint_colors) > 16:
+                        raise UserError("You can only specify up to 16 endpoint colors.")
+                except ValueError as error:
+                    raise UserError(f"There was a problem with your {index+1}. SVG endpoint color: {error}") from error
+            svg_setup_args["endpoint_colors"] = endpoint_colors
+        svg_setup = SvgSetup(**svg_setup_args)
         svg_layout = SvgLayout(svg_setup)
         self.output_path = Path(args.output)
         modifiers: list[Modifier] = []

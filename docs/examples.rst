@@ -90,3 +90,11 @@ From the Documentation
 
 .. figure:: /images/example_cmd_merge_2.svg
     :width: 420px
+
+.. code-block:: console
+
+    generate_maze.py -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000
+
+.. figure:: /images/example_cmd_color_1.svg
+    :width: 300px
+

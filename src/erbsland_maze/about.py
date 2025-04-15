@@ -9,6 +9,6 @@ __all__ = [
     "COPYRIGHT",
 ]
 
-VERSION = "1.2"
+VERSION = "1.3"
 AUTHOR = "Tobias Erbsland"
-COPYRIGHT = f"2003-2024, Tobias Erbsland"
+COPYRIGHT = f"2003-2025, Tobias Erbsland"

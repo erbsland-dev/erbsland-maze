@@ -190,6 +190,28 @@ This project currently provides only built-in support to generate SVG files usin
 
         This flag controls if the SVG background shall be drawn opaque.
 
+    .. attribute:: background_color
+        :type: Color
+        :value: Color(0.8, 0.8, 0.8, 1.0)
+
+        Defines the background color used in the rendered SVG image, assuming the background drawing is enabled via the :attr:`svg_background` flag. This allows you to fully customize the appearance of the SVG’s canvas background. The color is expressed as a :class:`Color` object using RGBA format with floating-point values between 0.0 and 1.0.
+
+    .. attribute:: room_color
+        :type: Color
+        :value: Color(0.2, 0.2, 0.2, 1.0)
+
+        Sets the color used to draw the maze paths—i.e., the rooms that form the maze layout. This option controls the overall tone of the maze drawing itself. The value is specified as a :class:`Color` object in RGBA format, allowing for transparency and fine-grained control over appearance.
+
+    .. attribute:: endpoint_colors
+        :type: list[Color]
+        :value: []
+
+        Specifies the colors used to highlight the maze’s path endpoints. This list defines the color for each individual endpoint in the order they are defined.
+
+        If the list is left empty, a set of default colors is automatically assigned, cycling through a full color wheel for visual distinction. When fewer colors are provided than there are endpoints, the system will repeatedly cycle through your custom list until every endpoint is assigned a color.
+
+        Each color in the list must be defined using the :class:`Color` class.
+
 .. autoclass:: Parity
     :members:
 
@@ -200,6 +222,9 @@ This project currently provides only built-in support to generate SVG files usin
     :members:
 
 .. autoclass:: SvgZeroPoint
+    :members:
+
+.. autoclass:: Color
     :members:
 
 
