@@ -9,9 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
       - name: Install Sphinx
         run: |
-          pip install sphinx sphinx-rtd-theme pycairo
+          pip install sphinx sphinx-rtd-theme
       - name: Build documentation
         run: |
           sphinx-build docs _build
