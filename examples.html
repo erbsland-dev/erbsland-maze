@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; Erbsland Maze 1.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/documentation_options.js?v=8ca9e7a0"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Generate Mazes via API" href="generate-via-api.html" />
+    <link rel="prev" title="Command Line Options" href="command-line.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Erbsland Maze
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="command-line.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#from-the-documentation">From the Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generate-via-api.html">Generate Mazes via API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Erbsland Maze</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h1>
+<p>This chapter showcases a selection of examples, each accompanied by the specific command line arguments used to generate the depicted maze. These examples are intended to inspire and guide you through creating various maze designs and configurations.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 300 -y 300 -t 0.5 -e nw -e se -m w/3/1 -m nw/5 -m n/3/1 -m ne/5 -m e/3/1 -m se/5 -m s/3/1 -m sw/5 -b c/5 -b c/3/-6,0 -b c/3/6,0 -b c/3/0,-6 -b c/3/0,6 -f 2 -c ^m/w/3/1 -c ^m/nw/5 -c ^m/n/3/1 -c ^m/ne/5 -c ^m/e/3/1 -c ^m/se/5 -c ^m/s/3/1 -c ^m/sw/5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_1.svg"><img alt="_images/example_1.svg" src="_images/example_1.svg" style="width: 100%;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 300 -y 100 -l 4 -t 2.5 -e w/10 -e e/10 -m w/3/10 -m e/3/10 -b nw/5 -b ne/5 -b se/5 -b sw/5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_2.svg"><img alt="_images/example_2.svg" src="_images/example_2.svg" style="width: 100%;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 200 -y 300 --height-parity=none --width-parity=none -l 4 -t 0.5 -e nw -e n/0/x -e ne/0/x -e e/20/x -e se -e s/0/x -e sw/1/x -m sw/2/1 -b w/2x67 -b ne/30x20/-4,12 -b se/30x20/-4,-12 -b e/20x43</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_3.svg"><img alt="_images/example_3.svg" src="_images/example_3.svg" style="width: 400px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 125 -y 255 -l 5.0 -t 2.5 -f 0,0,2,0 -c ^mn/s/3/3 -c ^ms/n/5/3 -e n/8 -m n/5/8 -c ^m/n/5/8 -e s/0/x -m s/3 -e s/-5,0/x -m s/3/-5,0 -e s/-10,0/x -m s/3/-10,0 -e s/5,0 -m s/3/5,0 -e s/10,0/x -m s/3/10,0 -c c/s/3/-10,0 -c c/s/3/-5,0 -c c/s/3 -c c/s/3/5,0 -c c/s/3/10,0</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_4.svg"><img alt="_images/example_4.svg" src="_images/example_4.svg" style="width: 300px;" />
+</a>
+</figure>
+<section id="from-the-documentation">
+<h2>From the Documentation<a class="headerlink" href="#from-the-documentation" title="Link to this heading">¶</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 55 -y 55 -l 5 -t 0.4 -f 1</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_thickness_2.svg"><img alt="_images/example_cmd_thickness_2.svg" src="_images/example_cmd_thickness_2.svg" style="width: 275px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 50 -y 50 -f 1 -e w -e c -e n/0/x -e e/0/x -e s/0/x -m c/3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_dead_end.svg"><img alt="_images/example_dead_end.svg" src="_images/example_dead_end.svg" style="width: 250px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 80 -y 80 --width-parity=even --height-parity=even -f 2 -m nw/3 -m ne/3 -m se/3 -m sw/3 -m w/2/1 -m n/2/1 -m e/2/1 -m s/2/1 -m c/4 -e nw/0/x -e ne/0 -e sw/0/x -e se/0/x -e c</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_frame_2.svg"><img alt="_images/example_cmd_frame_2.svg" src="_images/example_cmd_frame_2.svg" style="width: 400px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b c/7</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_blank_1.svg"><img alt="_images/example_cmd_blank_1.svg" src="_images/example_cmd_blank_1.svg" style="width: 300px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b nw/5 -b ne/5 -b se/5 -b sw/5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_blank_2.svg"><img alt="_images/example_cmd_blank_2.svg" src="_images/example_cmd_blank_2.svg" style="width: 300px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 80 -y 80 -c dh/w/4x17 -c dv/n/17x4 -c dh/e/4x17 -c dv/s/17x4 -b c/17 -e c/-8,0 -e c/8,0 -t 0.3 -l 3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_3.svg"><img alt="_images/example_cmd_close_3.svg" src="_images/example_cmd_close_3.svg" style="width: 400px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 100 -f 0,0,2,0 -m s/3 -c ^mn/s/3/3 -m n/5/3 -c ^ms/n/5/3 -e n/3 -e s</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_4.svg"><img alt="_images/example_cmd_close_4.svg" src="_images/example_cmd_close_4.svg" style="width: 300px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 84 -y 60 -e nw -e se -m w/3/1 -m nw/3 -m n/3/1 -m ne/3 -m e/3/1 -m se/3 -m s/3/1 -m sw/3 -b c/5 -f 1 -c ^m/w/3/1 -c ^m/nw/3 -c ^m/n/3/1 -c ^m/ne/3 -c ^m/e/3/1 -c ^m/se/3 -c ^m/s/3/1 -c ^m/sw/3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_merge_2.svg"><img alt="_images/example_cmd_merge_2.svg" src="_images/example_cmd_merge_2.svg" style="width: 420px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_color_1.svg"><img alt="_images/example_cmd_color_1.svg" src="_images/example_cmd_color_1.svg" style="width: 300px;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="command-line.html" class="btn btn-neutral float-left" title="Command Line Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generate-via-api.html" class="btn btn-neutral float-right" title="Generate Mazes via API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2025, Tobias Erbsland.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

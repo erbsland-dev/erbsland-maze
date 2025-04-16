@@ -1,0 +1,867 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Line Options &mdash; Erbsland Maze 1.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/documentation_options.js?v=8ca9e7a0"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Welcome to Erbsland Maze" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Erbsland Maze
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adjusting-the-maze-dimensions">Adjusting the Maze Dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-end-points">Configuring the End Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changing-the-layout-of-the-maze">Changing the Layout of the Maze</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-frame-of-blank-rooms-around-the-maze">Adding a Frame of Blank Rooms Around the Maze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-blank-space-to-the-maze">Adding Blank Space to the Maze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closing-connections-between-rooms">Closing Connections between Rooms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-smaller-rooms-into-larger-ones">Merge Smaller Rooms into Larger Ones</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#options-for-the-svg-output">Options for the SVG Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-color-formats">Supported Color Formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-options">Other Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#placement-parameter">Placement Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#size-parameter">Size Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#offset-parameter">Offset Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closing-parameter">Closing Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#insets-parameter">Insets Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate-via-api.html">Generate Mazes via API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Erbsland Maze</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Command Line Options</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/command-line.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="command-line-options">
+<span id="command-line"></span><h1>Command Line Options<a class="headerlink" href="#command-line-options" title="Link to this heading">¶</a></h1>
+<p>This chapter provides a comprehensive overview of the command-line options available for the <code class="docutils literal notranslate"><span class="pre">generate_maze.py</span></code> tool. To utilize the tool, execute the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python generate_maze.py -x 160 -y 160 -f 1 -o demo.svg</span>
+</pre></div>
+</div>
+<section id="adjusting-the-maze-dimensions">
+<h2>Adjusting the Maze Dimensions<a class="headerlink" href="#adjusting-the-maze-dimensions" title="Link to this heading">¶</a></h2>
+<p>To customize the dimensions of your maze, utilize the following command-line options. These settings define the overall size and structure of the maze, influencing the generated SVG file.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-x">
+<span id="cmdoption-generate_maze.py-width"></span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--width</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-x" title="Link to this definition">¶</a></dt>
+<dd><p>This mandatory option specifies the width of the maze in millimeters (mm). The width impacts the final dimensions of the generated SVG file. When used alongside the <a class="reference internal" href="#cmdoption-generate_maze.py-l"><code class="xref std std-option docutils literal notranslate"><span class="pre">--length</span></code></a> option, the application calculates the optimal number of rooms along the X axis.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 55 -y 35 -l 5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_width.svg"><img alt="_images/example_cmd_width.svg" src="_images/example_cmd_width.svg" style="width: 275px;" />
+</a>
+</figure>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-y">
+<span id="cmdoption-generate_maze.py-height"></span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--height</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-y" title="Link to this definition">¶</a></dt>
+<dd><p>This required option sets the height of the maze in millimeters (mm). Similar to width, height determines the dimensions of the resulting SVG file. In combination with the <a class="reference internal" href="#cmdoption-generate_maze.py-l"><code class="xref std std-option docutils literal notranslate"><span class="pre">--length</span></code></a> option, it helps in determining the ideal number of rooms along the Y axis.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 20 -y 44 -l 4 -f 0,1</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_height.svg"><img alt="_images/example_cmd_height.svg" src="_images/example_cmd_height.svg" style="width: 100px;" />
+</a>
+</figure>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-t">
+<span id="cmdoption-generate_maze.py-thickness"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--thickness</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-t" title="Link to this definition">¶</a></dt>
+<dd><p>Define the thickness of the maze’s walls with this option, measured in millimeters (mm). If not specified, a default thickness of 1.7 mm is applied.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 55 -y 55 -l 5 -t 3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_thickness_1.svg"><img alt="_images/example_cmd_thickness_1.svg" src="_images/example_cmd_thickness_1.svg" style="width: 275px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 55 -y 55 -l 5 -t 0.4 -f 1</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_thickness_2.svg"><img alt="_images/example_cmd_thickness_2.svg" src="_images/example_cmd_thickness_2.svg" style="width: 275px;" />
+</a>
+</figure>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-l">
+<span id="cmdoption-generate_maze.py-length"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--length</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dimension&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-l" title="Link to this definition">¶</a></dt>
+<dd><p>This parameter establishes the side length of each room within the maze, including wall thickness, measured in millimeters (mm). The default value is 4 mm, applied when this option is not explicitly set.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 42 -y 42 -l 6</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_length_1.svg"><img alt="_images/example_cmd_length_1.svg" src="_images/example_cmd_length_1.svg" style="width: 210px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 42 -y 42 -l 4</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_length_2.svg"><img alt="_images/example_cmd_length_2.svg" src="_images/example_cmd_length_2.svg" style="width: 210px;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the maze’s specified width and height do not proportionately match the room length set by this option, by default, the outer rooms will be adjusted in size to ensure the entire area is filled. To change this behaviour, see <a class="reference internal" href="#cmdoption-generate_maze.py-i"><code class="xref std std-option docutils literal notranslate"><span class="pre">--fill-mode</span></code></a>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 42 -y 40 -l 5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_length_3.svg"><img alt="_images/example_cmd_length_3.svg" src="_images/example_cmd_length_3.svg" style="width: 210px;" />
+</a>
+</figure>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-i">
+<span id="cmdoption-generate_maze.py-fill-mode"></span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fill</span> <span class="pre">mode&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--fill-mode</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fill</span> <span class="pre">mode&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-i" title="Link to this definition">¶</a></dt>
+<dd><p>This parameters controls how the rooms are distributed in the canvas defined with <a class="reference internal" href="#cmdoption-generate_maze.py-x"><code class="xref std std-option docutils literal notranslate"><span class="pre">--width</span></code></a> and <a class="reference internal" href="#cmdoption-generate_maze.py-y"><code class="xref std std-option docutils literal notranslate"><span class="pre">--height</span></code></a>. There are several fill modes available, explained in the following table:</p>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 55.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stretch_edge</span></code>, <code class="docutils literal notranslate"><span class="pre">se</span></code></p></td>
+<td><p>Calculate the best square room size from the side lengths and parity and stretch the rooms at the edges to completely fill the specified width and height.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_1.svg"><img alt="_images/example_cmd_fill_mode_1.svg" src="_images/example_cmd_fill_mode_1.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stretch</span></code>, <code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Stretch the rooms into rectangles that completely fill the specified width and height.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_2.svg"><img alt="_images/example_cmd_fill_mode_2.svg" src="_images/example_cmd_fill_mode_2.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">square_top_left</span></code>, <code class="docutils literal notranslate"><span class="pre">qt</span></code></p></td>
+<td><p>Use a square room size that fills at least one dimension perfectly, and align the maze at the top left corner. If the room size doesn’t divide the with and height evenly, there will be a gap at the bottom or right side.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_3.svg"><img alt="_images/example_cmd_fill_mode_3.svg" src="_images/example_cmd_fill_mode_3.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">square_center</span></code>, <code class="docutils literal notranslate"><span class="pre">q</span></code></p></td>
+<td><p>Use a square room size that fills at least one dimension perfectly, and align the maze at the top left corner. If the room size doesn’t divide the with and height evenly, there will be a gap around the maze.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_4.svg"><img alt="_images/example_cmd_fill_mode_4.svg" src="_images/example_cmd_fill_mode_4.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fixed_top_left</span></code>, <code class="docutils literal notranslate"><span class="pre">ft</span></code></p></td>
+<td><p>Use a square room size with the exact side length as configured and place the maze in the top left corner. If the room size doesn’t divide the with and height evenly, there will be a gap at the bottom or right side.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_5.svg"><img alt="_images/example_cmd_fill_mode_5.svg" src="_images/example_cmd_fill_mode_5.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fixed_center</span></code>, <code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td><p>Use a square room size with the exact side length as configured and place the maze in the center. If the room size doesn’t divide the with and height evenly, there will be a gap around the maze.</p></td>
+<td><a class="reference internal image-reference" href="_images/example_cmd_fill_mode_6.svg"><img alt="_images/example_cmd_fill_mode_6.svg" src="_images/example_cmd_fill_mode_6.svg" style="width: 100px;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-width-parity">
+<span class="sig-name descname"><span class="pre">--width-parity</span></span><span class="sig-prename descclassname"> <span class="pre">{none,odd,even}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-width-parity" title="Link to this definition">¶</a></dt>
+<dd><p>This option allows you to determine the parity (odd or even) of the room count along the X axis. If not specified, the default setting is <code class="docutils literal notranslate"><span class="pre">odd</span></code>.</p>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">odd</span></code></p></td>
+<td><p>Enforce a odd number of rooms along the X axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">even</span></code></p></td>
+<td><p>Enforce an even number of rooms along the X axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">none</span></code></p></td>
+<td><p>Do not set any preference, the room count may be odd or even.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=even</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_parity_1.svg"><img alt="_images/example_cmd_parity_1.svg" src="_images/example_cmd_parity_1.svg" style="width: 150px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=odd --height-parity=even</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_parity_2.svg"><img alt="_images/example_cmd_parity_2.svg" src="_images/example_cmd_parity_2.svg" style="width: 150px;" />
+</a>
+</figure>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=none --height-parity=even</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_parity_3.svg"><img alt="_images/example_cmd_parity_3.svg" src="_images/example_cmd_parity_3.svg" style="width: 150px;" />
+</a>
+</figure>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-height-parity">
+<span class="sig-name descname"><span class="pre">--height-parity</span></span><span class="sig-prename descclassname"> <span class="pre">{none,odd,even}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-height-parity" title="Link to this definition">¶</a></dt>
+<dd><p>Similarly, this option lets you set the parity (odd or even) of the room count along the Y axis, with a default setting of <code class="docutils literal notranslate"><span class="pre">odd</span></code> if not specified.</p>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">odd</span></code></p></td>
+<td><p>Enforce a odd number of rooms along the Y axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">even</span></code></p></td>
+<td><p>Enforce an even number of rooms along the Y axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">none</span></code></p></td>
+<td><p>Do not set any preference, the room count may be odd or even.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=odd</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_parity_4.svg"><img alt="_images/example_cmd_parity_4.svg" src="_images/example_cmd_parity_4.svg" style="width: 150px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+<section id="configuring-the-end-points">
+<h2>Configuring the End Points<a class="headerlink" href="#configuring-the-end-points" title="Link to this heading">¶</a></h2>
+<p>The end points of your maze can be customized using the following command-line option. This feature allows you to define the start and finish points, or any specific points of interest within your maze.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-e">
+<span id="cmdoption-generate_maze.py-end-point"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;end</span> <span class="pre">point</span> <span class="pre">definition&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--end-point</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;end</span> <span class="pre">point</span> <span class="pre">definition&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-e" title="Link to this definition">¶</a></dt>
+<dd><p>Specify one or more end points using the format <code class="docutils literal notranslate"><span class="pre">&lt;placement&gt;[/&lt;offset&gt;[/x]]</span></code>. By default, if no end points are specified, the tool automatically adds an end point on both the left and right sides of the maze.</p>
+<p>The <a class="reference internal" href="#param-placement"><span class="std std-ref">placement parameter</span></a> defines the location of the end point and is mandatory. For dynamic maze designs, a <code class="docutils literal notranslate"><span class="pre">random</span></code> placement option is available, although its practicality may vary.</p>
+<p>Optionally, you can specify an <a class="reference internal" href="#param-offset"><span class="std std-ref">offset parameter</span></a>, separated by a slash <code class="docutils literal notranslate"><span class="pre">/</span></code>. This allows for more precise placement of the end points within the maze’s structure.</p>
+<p>To designate an end point as a dead-end, append an <code class="docutils literal notranslate"><span class="pre">x</span></code> after another slash <code class="docutils literal notranslate"><span class="pre">/</span></code>. This feature enables the creation of more complex maze layouts.</p>
+<p>It’s important to note that specifying an end point will overwrite any blank (empty) rooms in the specified location. If an end point is placed within a frame of empty rooms, that room will be converted into a standard maze room.</p>
+<p>For example, to create a maze with a frame of blank rooms and a path leading from the top to the center, use the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 50 -y 50 -f 1 -e top -e center/0,1</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_end_point.svg"><img alt="_images/example_end_point.svg" src="_images/example_end_point.svg" style="width: 250px;" />
+</a>
+</figure>
+<p>The example below demonstrates how to add three dead-ends to a maze, with only one path leading from the edge to the center:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 50 -y 50 -f 1 -e w -e c -e n/0/x -e e/0/x -e s/0/x -m c/3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_dead_end.svg"><img alt="_images/example_dead_end.svg" src="_images/example_dead_end.svg" style="width: 250px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+<section id="changing-the-layout-of-the-maze">
+<h2>Changing the Layout of the Maze<a class="headerlink" href="#changing-the-layout-of-the-maze" title="Link to this heading">¶</a></h2>
+<p>To fine-tune the maze’s layout before generating paths, you can use a series of modifier options. These modifiers are applied sequentially to achieve the desired layout effect: initially, ‘blank’ modifiers eliminate specific rooms; subsequently, connections are removed using ‘closing’ modifiers; and finally, rooms are merged to complete the layout adjustment.</p>
+<p>The application of modifiers follows a specific sequence based on their placement within the maze. Modifiers designated for the center are applied first, followed by those at the corners, and lastly, any random modifiers are applied. This ordered approach is designed to minimize unintended consequences, particularly from random modifications.</p>
+<section id="adding-a-frame-of-blank-rooms-around-the-maze">
+<h3>Adding a Frame of Blank Rooms Around the Maze<a class="headerlink" href="#adding-a-frame-of-blank-rooms-around-the-maze" title="Link to this heading">¶</a></h3>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-f">
+<span id="cmdoption-generate_maze.py-add-frame"></span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;frame</span> <span class="pre">definition&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--add-frame</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;frame</span> <span class="pre">definition&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-f" title="Link to this definition">¶</a></dt>
+<dd><p>Use this option to add a surrounding frame of blank rooms to the maze. The thickness of the frame on each side is determined by the <a class="reference internal" href="#param-insets"><span class="std std-ref">insets parameter</span></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>End points completely encased in blank spaces can block all potential solutions. If the frame extends two or more rooms thick, ensure that end points either have larger merged rooms or are positioned to directly connect to an adjacent room, maintaining at least one open side.</p>
+</div>
+<p>To add a single-room thick frame around a maze, you can use the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 55 -y 55 -f 1</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_frame_1.svg"><img alt="_images/example_cmd_frame_1.svg" src="_images/example_cmd_frame_1.svg" style="width: 275px;" />
+</a>
+</figure>
+<p>In a more complex scenario, adding a two-room thick frame with even width and height parity, while merging rooms at strategic locations, can be achieved as shown below:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 80 -y 80 --width-parity=even --height-parity=even -f 2 -m nw/3 -m ne/3 -m se/3 -m sw/3 -m w/2/1 -m n/2/1 -m e/2/1 -m s/2/1 -m c/4 -e nw/0/x -e ne/0 -e sw/0/x -e se/0/x -e c</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_frame_2.svg"><img alt="_images/example_cmd_frame_2.svg" src="_images/example_cmd_frame_2.svg" style="width: 400px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+<section id="adding-blank-space-to-the-maze">
+<h3>Adding Blank Space to the Maze<a class="headerlink" href="#adding-blank-space-to-the-maze" title="Link to this heading">¶</a></h3>
+<p>Introducing blank spaces into your maze layout effectively removes rooms along with their connections in the specified areas. This feature can be particularly useful for embedding logos, text, or for sculpting the rectangular maze into more dynamic shapes.</p>
+<p>Although there’s no limit to the number of blank spaces you can add, it’s crucial to maintain a viable path of rooms connecting all non-dead-end end points.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-b">
+<span id="cmdoption-generate_maze.py-add-blank"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;blank</span> <span class="pre">definition&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--add-blank</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;blank</span> <span class="pre">definition&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-b" title="Link to this definition">¶</a></dt>
+<dd><p>This option allows you to add designated blank spaces within the maze. The syntax for this argument is: <code class="docutils literal notranslate"><span class="pre">&lt;placement&gt;[/&lt;size&gt;[/&lt;offset&gt;]]</span></code></p>
+<p>The <a class="reference internal" href="#param-placement"><span class="std std-ref">placement parameter</span></a> is mandatory and may be followed by an optional <a class="reference internal" href="#param-size"><span class="std std-ref">size parameter</span></a> and an <a class="reference internal" href="#param-offset"><span class="std std-ref">offset parameter</span></a>, each separated by a slash <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don’t worry about overlapping blank spaces; since rooms are simply marked as blank and removed at the final stage of layout preparation, overlaps do not pose any problem.</p>
+</div>
+<p>For example, to add a central blank space with a size of 7, use the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b c/7</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_blank_1.svg"><img alt="_images/example_cmd_blank_1.svg" src="_images/example_cmd_blank_1.svg" style="width: 300px;" />
+</a>
+</figure>
+<p>To create a layout with blank spaces at each corner of the maze, each with a size of 5, the command would be:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b nw/5 -b ne/5 -b se/5 -b sw/5</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_blank_2.svg"><img alt="_images/example_cmd_blank_2.svg" src="_images/example_cmd_blank_2.svg" style="width: 300px;" />
+</a>
+</figure>
+<p>And to demonstrate a more randomized approach with multiple blank spaces of varying sizes placed randomly, consider this command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b r/3 -b r/3 -b r/3 -b r/2 -b r/2</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_blank_3.svg"><img alt="_images/example_cmd_blank_3.svg" src="_images/example_cmd_blank_3.svg" style="width: 300px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+<section id="closing-connections-between-rooms">
+<h3>Closing Connections between Rooms<a class="headerlink" href="#closing-connections-between-rooms" title="Link to this heading">¶</a></h3>
+<p>Modifying the maze by closing connections between rooms can significantly influence the shape of the maze and the algorithm’s path generation. This technique is especially useful for designing mazes with specific configurations or when you need to control exit points from merged rooms.</p>
+<p>To illustrate the impact of closing connections, consider the following example, which closes all vertical connections in the center area, leaving only horizontal paths:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -c dv/c/5x15 -t 3 --layout-only</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_1.svg"><img alt="_images/example_cmd_close_1.svg" src="_images/example_cmd_close_1.svg" style="width: 300px;" />
+</a>
+</figure>
+<p>Rerunning the command without the <a class="reference internal" href="#cmdoption-generate_maze.py-layout-only"><code class="xref std std-option docutils literal notranslate"><span class="pre">--layout-only</span></code></a> option showcases the final maze design:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -c dv/c/5x15 -t 3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_2.svg"><img alt="_images/example_cmd_close_2.svg" src="_images/example_cmd_close_2.svg" style="width: 300px;" />
+</a>
+</figure>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-c">
+<span id="cmdoption-generate_maze.py-add-closing"></span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;closing</span> <span class="pre">definition&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--add-closing</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;closing</span> <span class="pre">definition&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-c" title="Link to this definition">¶</a></dt>
+<dd><p>Before running the maze generation algorithm, you can close specific connections within the maze using this option. The format for this argument is: <code class="docutils literal notranslate"><span class="pre">[^]&lt;closing&gt;/&lt;placement&gt;[/&lt;size&gt;[/&lt;offset&gt;]]</span></code></p>
+<p>The argument begins with the mandatory <a class="reference internal" href="#param-closing"><span class="std std-ref">closing parameter</span></a> and <a class="reference internal" href="#param-placement"><span class="std std-ref">placement parameter</span></a>, separated by a slash <code class="docutils literal notranslate"><span class="pre">/</span></code>. Optionally, a <a class="reference internal" href="#param-size"><span class="std std-ref">size parameter</span></a> and an <a class="reference internal" href="#param-offset"><span class="std std-ref">offset parameter</span></a> may follow.</p>
+<p>For a more complex configuration, creating a unique pattern with closed connections and blank spaces can be achieved as shown:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 80 -y 80 -c dh/w/4x17 -c dv/n/17x4 -c dh/e/4x17 -c dv/s/17x4 -b c/17 -e c/-8,0 -e c/8,0 -t 0.3 -l 3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_3.svg"><img alt="_images/example_cmd_close_3.svg" src="_images/example_cmd_close_3.svg" style="width: 400px;" />
+</a>
+</figure>
+<p>Another example demonstrates the addition of closed connections to create distinct sections within the maze, complemented by modifications and end points:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 100 -f 0,0,2,0 -m s/3 -c ^mn/s/3/3 -m n/5/3 -c ^ms/n/5/3 -e n/3 -e s</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_close_4.svg"><img alt="_images/example_cmd_close_4.svg" src="_images/example_cmd_close_4.svg" style="width: 300px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+<section id="merge-smaller-rooms-into-larger-ones">
+<h3>Merge Smaller Rooms into Larger Ones<a class="headerlink" href="#merge-smaller-rooms-into-larger-ones" title="Link to this heading">¶</a></h3>
+<p>Merging smaller rooms into larger spaces within your maze not only changes its visual appeal but can also be used to highlight ends or points of interest along the way. It’s important to note that merging is restricted to the original 1x1 room layout and should not interfere with already merged areas or rooms of unique shapes.</p>
+<p>For the merge to be valid, at least one of the rooms within the designated merge area must remain a standard room, maintaining connectivity with the rest of the maze.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-m">
+<span id="cmdoption-generate_maze.py-add-merge"></span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;merge</span> <span class="pre">definition&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--add-merge</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;merge</span> <span class="pre">definition&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-m" title="Link to this definition">¶</a></dt>
+<dd><p>This command merges specified rooms into a single, larger room. The required format for the argument is: <code class="docutils literal notranslate"><span class="pre">&lt;placement&gt;[/&lt;size&gt;[/&lt;offset&gt;]]</span></code></p>
+<p>The <a class="reference internal" href="#param-placement"><span class="std std-ref">placement parameter</span></a> is essential and can be optionally followed by a <a class="reference internal" href="#param-size"><span class="std std-ref">size parameter</span></a> and an <a class="reference internal" href="#param-offset"><span class="std std-ref">offset parameter</span></a>, with each parameter divided by a slash <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<p>For instance, to merge rooms located at all cardinal points and midpoints around the maze, use the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -m w/3 -m nw/3 -m n/3 -m ne/3 -m e/3 -m se/3 -m s/3 -m sw/3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_merge_1.svg"><img alt="_images/example_cmd_merge_1.svg" src="_images/example_cmd_merge_1.svg" style="width: 420px;" />
+</a>
+</figure>
+<p>In cases where the area designated for merging overlaps with blank spaces, these spaces will revert to standard rooms as part of the merge process:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 84 -y 60 -e nw -e se -m w/3/1 -m nw/3 -m n/3/1 -m ne/3 -m e/3/1 -m se/3 -m s/3/1 -m sw/3 -b c/5 -f 1 -c ^m/w/3/1 -c ^m/nw/3 -c ^m/n/3/1 -c ^m/ne/3 -c ^m/e/3/1 -c ^m/se/3 -c ^m/s/3/1 -c ^m/sw/3</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_merge_2.svg"><img alt="_images/example_cmd_merge_2.svg" src="_images/example_cmd_merge_2.svg" style="width: 420px;" />
+</a>
+</figure>
+</dd></dl>
+
+</section>
+</section>
+<section id="options-for-the-svg-output">
+<h2>Options for the SVG Output<a class="headerlink" href="#options-for-the-svg-output" title="Link to this heading">¶</a></h2>
+<p>Customize the SVG output of your maze with the following options, allowing for adjustments in the file’s location, appearance, and technical specifications.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-o">
+<span id="cmdoption-generate_maze.py-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;path&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;path&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-o" title="Link to this definition">¶</a></dt>
+<dd><p>Designate the filename or path for the generated SVG file. Without specification, the default file name used is <code class="docutils literal notranslate"><span class="pre">output.svg</span></code>. Both relative and absolute paths are supported.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-no-marks">
+<span class="sig-name descname"><span class="pre">--no-marks</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-no-marks" title="Link to this definition">¶</a></dt>
+<dd><p>Activating this flag will omit the colored rectangle markers at the path ends. This option is particularly beneficial for integrating the maze generation into automated workflows, where such markers may not be needed.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-unit">
+<span class="sig-name descname"><span class="pre">--svg-unit</span></span><span class="sig-prename descclassname"> <span class="pre">{mm,px}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-unit" title="Link to this definition">¶</a></dt>
+<dd><p>Select the unit of measurement for the SVG file’s dimensions. By default, <code class="docutils literal notranslate"><span class="pre">mm</span></code> (millimeters) is used.</p>
+<p>Note: Switching to <code class="docutils literal notranslate"><span class="pre">px</span></code> (pixels) modifies the unit within the SVG file only and does not affect the input dimensions (width, height, or room length), which should always be provided in millimeters.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-dpi">
+<span class="sig-name descname"><span class="pre">--svg-dpi</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dpi&gt;</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-dpi" title="Link to this definition">¶</a></dt>
+<dd><p>Define the DPI (dots per inch) for converting millimeter measurements to pixels in the SVG output. The default setting is 96 DPI, and the acceptable range spans from 60 to 10,000 DPI.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-zero-point">
+<span class="sig-name descname"><span class="pre">--svg-zero-point</span></span><span class="sig-prename descclassname"> <span class="pre">{center,top_left}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-zero-point" title="Link to this definition">¶</a></dt>
+<dd><p>Adjust the origin point of the SVG canvas. By default, the <code class="docutils literal notranslate"><span class="pre">center</span></code> option is used.</p>
+</dd></dl>
+
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">center</span></code></p></td>
+<td><p>Places the maze’s center at the middle of the canvas, ensuring all SVG coordinates are positive from the document’s top-left corner. This is the default and best choice for viewing the SVG or using it for designs, web or print.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top_left</span></code></p></td>
+<td><p>Moves the zero point to the top-left corner of the document, beneficial for workflows requiring the maze’s center at the document’s origin, though it may not display correctly in all viewers.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-no-background">
+<span class="sig-name descname"><span class="pre">--svg-no-background</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-no-background" title="Link to this definition">¶</a></dt>
+<dd><p>When this flag is set, the generated SVG will not include a background rectangle, resulting in a transparent background.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-background-color">
+<span class="sig-name descname"><span class="pre">--svg-background-color</span></span><span class="sig-prename descclassname"> <span class="pre">{color_value}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-background-color" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the background color of the SVG output. This option takes effect only if the background is enabled (i.e., <a class="reference internal" href="#cmdoption-generate_maze.py-svg-no-background"><code class="xref std std-option docutils literal notranslate"><span class="pre">--svg-no-background</span></code></a> is not set). The value must be specified using one of the supported color formats listed below.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-room-color">
+<span class="sig-name descname"><span class="pre">--svg-room-color</span></span><span class="sig-prename descclassname"> <span class="pre">{color_value}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-room-color" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the fill color for the maze rooms—the connected paths that form the maze itself. The color must be provided in one of the supported formats shown below.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-svg-endpoint-color">
+<span class="sig-name descname"><span class="pre">--svg-endpoint-color</span></span><span class="sig-prename descclassname"> <span class="pre">{color_value}</span></span><a class="headerlink" href="#cmdoption-generate_maze.py-svg-endpoint-color" title="Link to this definition">¶</a></dt>
+<dd><p>Use this option one or more times to define the colors of the maze endpoints in the SVG output. The order of values determines the colors assigned to each endpoint. If fewer colors are provided than endpoints, the list will cycle as needed. Each color value must follow one of the supported formats below.</p>
+</dd></dl>
+
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">generate_maze.py -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000</span>
+</pre></div>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/example_cmd_color_1.svg"><img alt="_images/example_cmd_color_1.svg" src="_images/example_cmd_color_1.svg" style="width: 300px;" />
+</a>
+</figure>
+<section id="supported-color-formats">
+<h3>Supported Color Formats<a class="headerlink" href="#supported-color-formats" title="Link to this heading">¶</a></h3>
+<p>The following color formats are accepted:</p>
+<p><strong>Hexadecimal Notation:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#RRGGBB</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#RGB</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#RRGGBBAA</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#RGBA</span></code></p></li>
+</ul>
+<p>Each component (<code class="docutils literal notranslate"><span class="pre">R</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code>) is a hexadecimal digit.</p>
+<p><strong>CSS Color Functions:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rgb(R,G,B)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgba(R,G,B,A)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hsl(H,S%,L%)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hsla(H,S%,L%,A)</span></code></p></li>
+</ul>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code> are integers between 0–255,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> is a floating-point value between 0.0–1.0,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">H</span></code> is a degree value between 0–360,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">L</span></code> are percentages between 0–100 (with a <code class="docutils literal notranslate"><span class="pre">%</span></code> suffix).</p></li>
+</ul>
+</section>
+</section>
+<section id="other-options">
+<h2>Other Options<a class="headerlink" href="#other-options" title="Link to this heading">¶</a></h2>
+<p>Explore additional options to enhance your command-line experience with the maze generator, ranging from accessing help resources to customizing the maze generation process.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-h">
+<span id="cmdoption-generate_maze.py-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-h" title="Link to this definition">¶</a></dt>
+<dd><p>This option displays a comprehensive help page detailing all available command-line options. It’s a quick way to reference the functionality and parameters you can use.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-silent">
+<span class="sig-name descname"><span class="pre">--silent</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-silent" title="Link to this definition">¶</a></dt>
+<dd><p>Activate this mode to suppress progress messages during the maze generation process. This is particularly useful when integrating the tool into scripts or automated workflows where console output needs to be minimized.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-ignore-errors">
+<span class="sig-name descname"><span class="pre">--ignore-errors</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-ignore-errors" title="Link to this definition">¶</a></dt>
+<dd><p>When enabled, this option instructs the generator to proceed despite encountering errors, aiming to produce an output. This can be invaluable for debugging, offering insights into issues without halting the process.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-generate_maze.py-layout-only">
+<span class="sig-name descname"><span class="pre">--layout-only</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-generate_maze.py-layout-only" title="Link to this definition">¶</a></dt>
+<dd><p>This option halts the process after the layout preparation phase, saving the resulting layout where all potential connections remain open. It’s designed for debugging purposes or scenarios where a template of all possible maze configurations is required.</p>
+</dd></dl>
+
+</section>
+<section id="placement-parameter">
+<span id="param-placement"></span><h2>Placement Parameter<a class="headerlink" href="#placement-parameter" title="Link to this heading">¶</a></h2>
+<p>The concept of placements is pivotal for tailoring your maze’s design without the need to recalibrate absolute coordinates every time the maze’s dimensions change. Placements allow you to specify positions within the maze relative to nine predefined points, offering an intuitive method to anchor your customizations.</p>
+<p>The <a class="reference internal" href="#param-offset"><span class="std std-ref">Offset Parameter</span></a> and <a class="reference internal" href="#param-size"><span class="std std-ref">Size Parameter</span></a> parameters are dynamically adjusted based on the specified placement, streamlining the customization process.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">random</span></code> placement option assigns elements to unpredictable positions within the maze. While this can add an element of surprise and complexity, it also increases the likelihood of conflicts and overlaps. Consequently, generating a maze with random placements may necessitate multiple attempts to achieve a satisfactory and valid layout.</p>
+</div>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
+<td><p>Positioned at the midpoint of the left edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top_left</span></code>, <code class="docutils literal notranslate"><span class="pre">nw</span></code></p></td>
+<td><p>Located at the top left corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">top</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code></p></td>
+<td><p>Positioned at the midpoint of the top edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top_right</span></code>, <code class="docutils literal notranslate"><span class="pre">ne</span></code></p></td>
+<td><p>Located at the top right corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">right</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code></p></td>
+<td><p>Positioned at the midpoint of the right edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bottom_right</span></code>, <code class="docutils literal notranslate"><span class="pre">se</span></code></p></td>
+<td><p>Located at the bottom right corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<td><p>Positioned at the midpoint of the bottom edge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bottom_left</span></code>, <code class="docutils literal notranslate"><span class="pre">sw</span></code></p></td>
+<td><p>Located at the bottom left corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">center</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<td><p>Positioned at the maze’s center.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">random</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>Assigned to a random location within the maze.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="size-parameter">
+<span id="param-size"></span><h2>Size Parameter<a class="headerlink" href="#size-parameter" title="Link to this heading">¶</a></h2>
+<p>The size parameter plays a critical role in defining the scale of areas within your maze. It allows for both uniform and non-uniform area dimensions, catering to a variety of design needs.</p>
+<p>You can specify the size in two ways:</p>
+<ol class="arabic simple">
+<li><p>As a single positive integer (e.g., <code class="docutils literal notranslate"><span class="pre">3</span></code>), which sets both the width and height of the area to that value, resulting in a square.</p></li>
+<li><p>As two positive integers separated by an <code class="docutils literal notranslate"><span class="pre">x</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">3x2</span></code>), where the first number defines the width and the second defines the height of the area, enabling rectangular shapes.</p></li>
+</ol>
+<p>Additionally, there are predefined size names for convenience, allowing quick selection of common sizes without specifying exact dimensions.</p>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">single</span></code></p></td>
+<td><p>Defines an area size of 1×1 rooms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">small</span></code></p></td>
+<td><p>Sets the area to 2×2 rooms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">medium</span></code></p></td>
+<td><p>Establishes a size of 3×3 rooms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">large</span></code></p></td>
+<td><p>Expands the area to 4×4 rooms.</p></td>
+</tr>
+<tr class="row-even"><td><p>One number: <code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>Creates an area of 5×5 rooms.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Two numbers: <code class="docutils literal notranslate"><span class="pre">2x4</span></code></p></td>
+<td><p>Specifies an area of 2×4 rooms, catering to specific layout requirements.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="offset-parameter">
+<span id="param-offset"></span><h2>Offset Parameter<a class="headerlink" href="#offset-parameter" title="Link to this heading">¶</a></h2>
+<p>The offset parameter enhances the precision in positioning elements within your maze. It allows for adjustments both towards the maze’s center and independently along the X and Y axes. Here’s how you can specify the offset:</p>
+<ol class="arabic simple">
+<li><p>As a single number (e.g., <code class="docutils literal notranslate"><span class="pre">3</span></code>), the offset applies diagonally towards the maze’s center. The direction of this diagonal movement is influenced by the specified placement. For example, an element placed in the bottom right corner with a positive single-number offset would move diagonally up and left, closer to the center.</p></li>
+<li><p>As two numbers separated by a comma (e.g., <code class="docutils literal notranslate"><span class="pre">-4,2</span></code>), the offset operates independently of the element’s initial placement. The first number adjusts the position along the X-axis, and the second number along the Y-axis. Positive numbers move the element right (X-axis) or down (Y-axis), while negative numbers move it left (X-axis) or up (Y-axis).</p></li>
+</ol>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 75.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>One number: <code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>Moves the element diagonally towards the center, the direction dependent on its placement.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Two numbers: <code class="docutils literal notranslate"><span class="pre">2,-4</span></code></p></td>
+<td><p>Applies an independent offset along the X and Y-axis, allowing for precise positioning.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="closing-parameter">
+<span id="param-closing"></span><h2>Closing Parameter<a class="headerlink" href="#closing-parameter" title="Link to this heading">¶</a></h2>
+<p>The closing parameter is a strategic tool for controlling the maze’s layout by specifying which connections between rooms are to be permanently sealed off. The use of a <code class="docutils literal notranslate"><span class="pre">^</span></code> character as a prefix inversely selects the connections, adding versatility to your design strategy.</p>
+<p>For instance, <code class="docutils literal notranslate"><span class="pre">corner_paths</span></code> would block all paths at the corners of a specified area. Conversely, <code class="docutils literal notranslate"><span class="pre">^corner_paths</span></code> would keep only the corner connections open, blocking all others.</p>
+<p>This parameter can significantly influence the maze’s navigational complexity and aesthetic appeal.</p>
+<table class="docutils align-default" style="width: 100%">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">corner_paths</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<td><p>Blocks connections at all four corners of the area.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">corner_top_left</span></code>, <code class="docutils literal notranslate"><span class="pre">cnw</span></code></p></td>
+<td><p>Blocks the connection at this corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">corner_top_right</span></code>, <code class="docutils literal notranslate"><span class="pre">cne</span></code></p></td>
+<td><p>Blocks the connection at this corner.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">corner_bottom_right</span></code>, <code class="docutils literal notranslate"><span class="pre">cse</span></code></p></td>
+<td><p>Blocks the connection at this corner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">corner_bottom_left</span></code>, <code class="docutils literal notranslate"><span class="pre">csw</span></code></p></td>
+<td><p>Blocks the connection at this corner.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">direction_west</span></code>, <code class="docutils literal notranslate"><span class="pre">dw</span></code></p></td>
+<td><p>Seals off all connections extending westward from the specified area.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">direction_north</span></code>, <code class="docutils literal notranslate"><span class="pre">dn</span></code></p></td>
+<td><p>Seals off all connections extending northward from the specified area.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">direction_east</span></code>, <code class="docutils literal notranslate"><span class="pre">de</span></code></p></td>
+<td><p>Seals off all connections extending eastward from the specified area.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">direction_south</span></code>, <code class="docutils literal notranslate"><span class="pre">ds</span></code></p></td>
+<td><p>Seals off all connections extending southward from the specified area.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">direction_horizontal</span></code>, <code class="docutils literal notranslate"><span class="pre">dh</span></code></p></td>
+<td><p>Blocks all horizontal connections within the specified area.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">direction_vertical</span></code>, <code class="docutils literal notranslate"><span class="pre">dv</span></code></p></td>
+<td><p>Blocks all vertical connections within the specified area.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">middle_paths</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>Blocks all connections that intersect the midpoints of the area’s sides.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">middle_west</span></code>, <code class="docutils literal notranslate"><span class="pre">mw</span></code></p></td>
+<td><p>Blocks the connection at the midpoint of the western side.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">middle_north</span></code>, <code class="docutils literal notranslate"><span class="pre">mn</span></code></p></td>
+<td><p>Blocks the connection at the midpoint of the northern side.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">middle_east</span></code>, <code class="docutils literal notranslate"><span class="pre">me</span></code></p></td>
+<td><p>Blocks the connection at the midpoint of the eastern side.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">middle_south</span></code>, <code class="docutils literal notranslate"><span class="pre">ms</span></code></p></td>
+<td><p>Blocks the connection at the midpoint of the southern side.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="insets-parameter">
+<span id="param-insets"></span><h2>Insets Parameter<a class="headerlink" href="#insets-parameter" title="Link to this heading">¶</a></h2>
+<p>The insets parameter allows you to define the thickness of a frame around the maze. This parameter offers a flexible way to adjust the spacing around elements or areas by specifying up to four positive numbers, each separated by a comma. The application of these numbers varies based on how many you provide:</p>
+<ul class="simple">
+<li><p><strong>One Number</strong>: Applies uniformly to all four sides of the area (top, right, bottom, left), creating an evenly distributed frame.</p></li>
+<li><p><strong>Two Numbers</strong>: The first number sets the thickness for the top and bottom sides, while the second number applies to the left and right sides. This allows for vertical and horizontal spacing to be defined independently.</p></li>
+<li><p><strong>Three Numbers</strong>: The first number specifies the top side, the second number applies to both the right and left sides equally, and the third number sets the thickness for the bottom side. This configuration is less common but can be useful for specific design needs.</p></li>
+<li><p><strong>Four Numbers</strong>: Each number corresponds directly to one side of the area in the order of top, right, bottom, and left. This offers the most precise control over the spacing, allowing each side to be individually adjusted.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Erbsland Maze" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2003-2025, Tobias Erbsland.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
