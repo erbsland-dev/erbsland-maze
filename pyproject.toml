@@ -5,3 +5,43 @@ requires = [
     "pycairo"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "erbsland_maze"
+dynamic = ["version"]
+description = "A fast, modular and customizable generator for rectangular mazes."
+readme = "README.rst"
+requires-python = ">=3.12"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "Erbsland DEV", email = "info@erbsland.dev" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Visualization"
+]
+dependencies = [
+    "pycairo >= 1.26.0"
+]
+
+[project.urls]
+Documentation = "https://erbsland-dev.github.io/erbsland-maze/"
+Source = "https://github.com/erbsland-dev/erbsland-maze"
+Issues = "https://github.com/erbsland-dev/erbsland-maze/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { file = "src/erbsland_maze/VERSION.txt" }

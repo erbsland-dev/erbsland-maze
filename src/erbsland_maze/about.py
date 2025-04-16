@@ -1,14 +1,20 @@
-#  Copyright © 2003-2024 Tobias Erbsland https://erbsland.dev/ and EducateIT GmbH https://educateit.ch/
-#  According to the copyright terms specified in the file "COPYRIGHT.md".
-#  SPDX-License-Identifier: Apache-2.0
+#  Copyright © 2003-2025 Tobias Erbsland. Web: https://erbsland.dev/
+#  SPDX-License-Identifier: GPL-3.0-or-later
+
+from functools import cache
+from pathlib import Path
 
 
-__all__ = [
-    "VERSION",
-    "AUTHOR",
-    "COPYRIGHT",
-]
+@cache
+def get_version() -> str:
+    return Path(__file__).with_name("VERSION.txt").read_text().strip()
 
-VERSION = "1.3"
-AUTHOR = "Tobias Erbsland"
-COPYRIGHT = f"2003-2025, Tobias Erbsland"
+
+@cache
+def get_author() -> str:
+    return "Tobias Erbsland"
+
+
+@cache
+def get_copyright() -> str:
+    return f"2003-2025, Tobias Erbsland"

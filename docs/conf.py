@@ -36,11 +36,11 @@ for mod_name in MOCK_MODULES:
 
 project = "Erbsland Maze"
 if True:
-    import erbsland_maze.about
+    from erbsland_maze.about import get_version, get_author, get_copyright
 
-    copyright = erbsland_maze.about.COPYRIGHT
-    author = erbsland_maze.about.AUTHOR
-    version = release = erbsland_maze.about.VERSION
+    copyright = get_copyright()
+    author = get_author()
+    version = release = get_version()
 
 # -- General configuration ---------------------------------------------------
 

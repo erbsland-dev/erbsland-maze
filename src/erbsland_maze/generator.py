@@ -5,7 +5,7 @@ from itertools import product, combinations
 from pathlib import Path
 from typing import Optional
 
-from .about import VERSION
+from .about import get_version
 from .error_mark import ErrorMark
 from .generator_error import GeneratorError, NoValidSolutionError
 from .generator_setup import GeneratorSetup
@@ -52,7 +52,7 @@ class Generator:
         """
         if not self.setup.verbose:
             return
-        print(f"Erbsland Maze - V{VERSION}")
+        print(f"Erbsland Maze - V{get_version()}")
         print(f"  Layout: {self.layout.get_dimension_info()}")
         print(f"  Room count: {self.room_grid.size.width} x {self.room_grid.size.height}")
 
