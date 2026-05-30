@@ -17,7 +17,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: release
+    permissions:
+      contents: read
+      pages: write
     steps:
       - name: Checkout
         # actions/checkout@v6.0.2
