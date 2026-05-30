@@ -9,7 +9,7 @@ build-backend = "hatchling.build"
 name = "erbsland-maze"
 dynamic = ["version"]
 description = "A fast, modular and customizable generator for rectangular mazes."
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.12"
 license = "GPL-3.0-or-later"
 authors = [
@@ -61,11 +61,12 @@ packages = ["src/erbsland_maze"]
 [tool.hatch.build.targets.sdist]
 include = [
     "/docs",
+    "/docs/images/*.png",
     "/src",
     "/tests",
     "/LICENSE",
     "/LICENSE.md",
-    "/README.rst",
+    "/README.md",
     "/pyproject.toml"
 ]
 
