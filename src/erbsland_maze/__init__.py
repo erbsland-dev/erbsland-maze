@@ -1,6 +1,7 @@
-#  Copyright © 2003-2024 Tobias Erbsland. Web: https://erbsland.dev/
+#  Copyright © 2003-2026 Tobias Erbsland. Web: https://erbsland.dev/
 #  SPDX-License-Identifier: GPL-3.0-or-later
 
+from .about import get_version
 from .blank_modifier import BlankModifier
 from .closing import Closing
 from .closing_modifier import ClosingModifier
@@ -36,3 +37,5 @@ from .svg_setup import SvgSetup
 from .svg_unit import SvgUnit
 from .svg_zero_point import SvgZeroPoint
 from .wall import Wall
+
+__version__ = get_version()

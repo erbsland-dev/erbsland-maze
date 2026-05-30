@@ -4,7 +4,6 @@
 import enum
 from typing import Self
 
-
 ALIAS_MAP: dict[str, str] = {
     "se": "stretch_edge",
     "s": "stretch",

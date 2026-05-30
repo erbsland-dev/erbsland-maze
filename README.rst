@@ -27,40 +27,25 @@ Quickstart Guide
 
 Follow these steps to get started with Erbsland Maze:
 
-#.  Clone the repository and navigate into it:
+#.  Install the package from the PyPI:
 
     .. code-block:: console
 
-        git clone https://github.com/erbsland-dev/erbsland-maze/
-        cd erbsland-maze
-
-#.  Create and activate a new Python virtual environment:
-
-    .. code-block:: console
-
-        python3.12 -m venv venv
-        source venv/bin/activate
-
-#.  Install `pycairo`:
-
-    .. code-block:: console
-
-        pip install pycairo
+        pip install erbsland-maze
 
 #.  Generate your first maze:
 
     .. code-block:: console
 
-        cd src
-        python generate_maze.py -x 100 -y 100 -o maze.svg
+        elmaze -x 100 -y 100 -o maze.svg
 
-    This command creates a `maze.svg` file in the `src` directory with your newly generated maze.
+    This command creates a `maze.svg` file in the current directory with your newly generated maze.
 
 #.  For additional command-line options and configurations:
 
     .. code-block:: console
 
-        python generate_maze.py --help
+        elmaze --help
 
 Documentation
 -------------
@@ -73,21 +58,21 @@ Examples
 
 .. code-block:: console
 
-    generate_maze.py -x 300 -y 300 -t 0.5 -e nw -e se -m w/3/1 -m nw/5 -m n/3/1 -m ne/5 -m e/3/1 -m se/5 -m s/3/1 -m sw/5 -b c/5 -b c/3/-6,0 -b c/3/6,0 -b c/3/0,-6 -b c/3/0,6 -f 2 -c ^m/w/3/1 -c ^m/nw/5 -c ^m/n/3/1 -c ^m/ne/5 -c ^m/e/3/1 -c ^m/se/5 -c ^m/s/3/1 -c ^m/sw/5
+    elmaze -x 300 -y 300 -t 0.5 -e nw -e se -m w/3/1 -m nw/5 -m n/3/1 -m ne/5 -m e/3/1 -m se/5 -m s/3/1 -m sw/5 -b c/5 -b c/3/-6,0 -b c/3/6,0 -b c/3/0,-6 -b c/3/0,6 -f 2 -c ^m/w/3/1 -c ^m/nw/5 -c ^m/n/3/1 -c ^m/ne/5 -c ^m/e/3/1 -c ^m/se/5 -c ^m/s/3/1 -c ^m/sw/5
 
 .. image:: docs/images/example_1.svg
     :width: 100%
 
 .. code-block:: console
 
-    generate_maze.py -x 300 -y 100 -l 4 -t 2.5 -e w/10 -e e/10 -m w/3/10 -m e/3/10 -b nw/5 -b ne/5 -b se/5 -b sw/5
+    elmaze -x 300 -y 100 -l 4 -t 2.5 -e w/10 -e e/10 -m w/3/10 -m e/3/10 -b nw/5 -b ne/5 -b se/5 -b sw/5
 
 .. image:: docs/images/example_2.svg
     :width: 100%
 
 .. code-block:: console
 
-    generate_maze.py -x 200 -y 300 --height-parity=none --width-parity=none -l 4 -t 0.5 -e nw -e n/0/x -e ne/0/x -e e/20/x -e se -e s/0/x -e sw/1/x -m sw/2/1 -b w/2x67 -b ne/30x20/-4,12 -b se/30x20/-4,-12 -b e/20x43
+    elmaze -x 200 -y 300 --height-parity=none --width-parity=none -l 4 -t 0.5 -e nw -e n/0/x -e ne/0/x -e e/20/x -e se -e s/0/x -e sw/1/x -m sw/2/1 -b w/2x67 -b ne/30x20/-4,12 -b se/30x20/-4,-12 -b e/20x43
 
 .. image:: docs/images/example_3.svg
     :width: 100%
@@ -96,7 +81,7 @@ Examples
 License
 -------
 
-Copyright © 2003-2024 Tobias Erbsland https://erbsland.dev/
+Copyright © 2003-2026 Tobias Erbsland https://erbsland.dev/
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -113,5 +98,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 .. _`documentation`: https://erbsland-dev.github.io/erbsland-maze/
-
 

@@ -6,3 +6,5 @@ __pycache__
 .DStore
 **/*.egg-info
 /dist
+/_build
+/src/erbsland_maze/_version.py

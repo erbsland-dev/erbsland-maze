@@ -4,13 +4,17 @@
 Command Line Options
 ====================
 
-.. program:: generate_maze.py
+.. program:: elmaze
 
-This chapter provides a comprehensive overview of the command-line options available for the ``generate_maze.py`` tool. To utilize the tool, execute the following command:
+This chapter provides a comprehensive overview of the command-line options available for the installed ``elmaze`` tool. To utilize the tool, execute the following command:
 
 .. code-block:: console
 
-    python generate_maze.py -x 160 -y 160 -f 1 -o demo.svg
+    elmaze -x 160 -y 160 -f 1 -o demo.svg
+
+.. note::
+
+    The historic ``src/generate_maze.py`` script remains available in source checkouts as a compatibility wrapper, but package installations expose ``elmaze`` as the command-line entry point.
 
 Adjusting the Maze Dimensions
 -----------------------------
@@ -23,7 +27,7 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 55 -y 35 -l 5
+        elmaze -x 55 -y 35 -l 5
 
     .. figure:: /images/example_cmd_width.svg
         :width: 275px
@@ -34,7 +38,7 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 20 -y 44 -l 4 -f 0,1
+        elmaze -x 20 -y 44 -l 4 -f 0,1
 
     .. figure:: /images/example_cmd_height.svg
         :width: 100px
@@ -45,14 +49,14 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 55 -y 55 -l 5 -t 3
+        elmaze -x 55 -y 55 -l 5 -t 3
 
     .. figure:: /images/example_cmd_thickness_1.svg
         :width: 275px
 
     .. code-block:: console
 
-        generate_maze.py -x 55 -y 55 -l 5 -t 0.4 -f 1
+        elmaze -x 55 -y 55 -l 5 -t 0.4 -f 1
 
     .. figure:: /images/example_cmd_thickness_2.svg
         :width: 275px
@@ -63,14 +67,14 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 42 -y 42 -l 6
+        elmaze -x 42 -y 42 -l 6
 
     .. figure:: /images/example_cmd_length_1.svg
         :width: 210px
 
     .. code-block:: console
 
-        generate_maze.py -x 42 -y 42 -l 4
+        elmaze -x 42 -y 42 -l 4
 
     .. figure:: /images/example_cmd_length_2.svg
         :width: 210px
@@ -81,7 +85,7 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 42 -y 40 -l 5
+        elmaze -x 42 -y 40 -l 5
 
     .. figure:: /images/example_cmd_length_3.svg
         :width: 210px
@@ -144,21 +148,21 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=even
+        elmaze -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=even
 
     .. figure:: /images/example_cmd_parity_1.svg
         :width: 150px
 
     .. code-block:: console
 
-        generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=odd --height-parity=even
+        elmaze -x 30 -y 30 -l 5 -e nw -e se --width-parity=odd --height-parity=even
 
     .. figure:: /images/example_cmd_parity_2.svg
         :width: 150px
 
     .. code-block:: console
 
-        generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=none --height-parity=even
+        elmaze -x 30 -y 30 -l 5 -e nw -e se --width-parity=none --height-parity=even
 
     .. figure:: /images/example_cmd_parity_3.svg
         :width: 150px
@@ -183,7 +187,7 @@ To customize the dimensions of your maze, utilize the following command-line opt
 
     .. code-block:: console
 
-        generate_maze.py -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=odd
+        elmaze -x 30 -y 30 -l 5 -e nw -e se --width-parity=even --height-parity=odd
 
     .. figure:: /images/example_cmd_parity_4.svg
         :width: 150px
@@ -209,7 +213,7 @@ The end points of your maze can be customized using the following command-line o
 
     .. code-block:: console
 
-        generate_maze.py -x 50 -y 50 -f 1 -e top -e center/0,1
+        elmaze -x 50 -y 50 -f 1 -e top -e center/0,1
 
     .. figure:: /images/example_end_point.svg
         :width: 250px
@@ -218,7 +222,7 @@ The end points of your maze can be customized using the following command-line o
 
     .. code-block:: console
 
-        generate_maze.py -x 50 -y 50 -f 1 -e w -e c -e n/0/x -e e/0/x -e s/0/x -m c/3
+        elmaze -x 50 -y 50 -f 1 -e w -e c -e n/0/x -e e/0/x -e s/0/x -m c/3
 
     .. figure:: /images/example_dead_end.svg
         :width: 250px
@@ -245,7 +249,7 @@ Adding a Frame of Blank Rooms Around the Maze
 
     .. code-block:: console
 
-        generate_maze.py -x 55 -y 55 -f 1
+        elmaze -x 55 -y 55 -f 1
 
     .. figure:: /images/example_cmd_frame_1.svg
         :width: 275px
@@ -254,7 +258,7 @@ Adding a Frame of Blank Rooms Around the Maze
 
     .. code-block:: console
 
-        generate_maze.py -x 80 -y 80 --width-parity=even --height-parity=even -f 2 -m nw/3 -m ne/3 -m se/3 -m sw/3 -m w/2/1 -m n/2/1 -m e/2/1 -m s/2/1 -m c/4 -e nw/0/x -e ne/0 -e sw/0/x -e se/0/x -e c
+        elmaze -x 80 -y 80 --width-parity=even --height-parity=even -f 2 -m nw/3 -m ne/3 -m se/3 -m sw/3 -m w/2/1 -m n/2/1 -m e/2/1 -m s/2/1 -m c/4 -e nw/0/x -e ne/0 -e sw/0/x -e se/0/x -e c
 
     .. figure:: /images/example_cmd_frame_2.svg
         :width: 400px
@@ -280,7 +284,7 @@ Although there's no limit to the number of blank spaces you can add, it's crucia
 
    .. code-block:: console
 
-       generate_maze.py -x 60 -y 60 -b c/7
+       elmaze -x 60 -y 60 -b c/7
 
    .. figure:: /images/example_cmd_blank_1.svg
        :width: 300px
@@ -289,7 +293,7 @@ Although there's no limit to the number of blank spaces you can add, it's crucia
 
    .. code-block:: console
 
-       generate_maze.py -x 60 -y 60 -b nw/5 -b ne/5 -b se/5 -b sw/5
+       elmaze -x 60 -y 60 -b nw/5 -b ne/5 -b se/5 -b sw/5
 
    .. figure:: /images/example_cmd_blank_2.svg
        :width: 300px
@@ -298,7 +302,7 @@ Although there's no limit to the number of blank spaces you can add, it's crucia
 
    .. code-block:: console
 
-       generate_maze.py -x 60 -y 60 -b r/3 -b r/3 -b r/3 -b r/2 -b r/2
+       elmaze -x 60 -y 60 -b r/3 -b r/3 -b r/3 -b r/2 -b r/2
 
    .. figure:: /images/example_cmd_blank_3.svg
        :width: 300px
@@ -312,7 +316,7 @@ To illustrate the impact of closing connections, consider the following example,
 
 .. code-block:: console
 
-   generate_maze.py -x 60 -y 60 -c dv/c/5x15 -t 3 --layout-only
+   elmaze -x 60 -y 60 -c dv/c/5x15 -t 3 --layout-only
 
 .. figure:: /images/example_cmd_close_1.svg
     :width: 300px
@@ -321,7 +325,7 @@ Rerunning the command without the :option:`--layout-only` option showcases the f
 
 .. code-block:: console
 
-   generate_maze.py -x 60 -y 60 -c dv/c/5x15 -t 3
+   elmaze -x 60 -y 60 -c dv/c/5x15 -t 3
 
 .. figure:: /images/example_cmd_close_2.svg
     :width: 300px
@@ -336,7 +340,7 @@ Rerunning the command without the :option:`--layout-only` option showcases the f
 
     .. code-block:: console
 
-       generate_maze.py -x 80 -y 80 -c dh/w/4x17 -c dv/n/17x4 -c dh/e/4x17 -c dv/s/17x4 -b c/17 -e c/-8,0 -e c/8,0 -t 0.3 -l 3
+       elmaze -x 80 -y 80 -c dh/w/4x17 -c dv/n/17x4 -c dh/e/4x17 -c dv/s/17x4 -b c/17 -e c/-8,0 -e c/8,0 -t 0.3 -l 3
 
     .. figure:: /images/example_cmd_close_3.svg
         :width: 400px
@@ -345,7 +349,7 @@ Rerunning the command without the :option:`--layout-only` option showcases the f
 
     .. code-block:: console
 
-       generate_maze.py -x 60 -y 100 -f 0,0,2,0 -m s/3 -c ^mn/s/3/3 -m n/5/3 -c ^ms/n/5/3 -e n/3 -e s
+       elmaze -x 60 -y 100 -f 0,0,2,0 -m s/3 -c ^mn/s/3/3 -m n/5/3 -c ^ms/n/5/3 -e n/3 -e s
 
     .. figure:: /images/example_cmd_close_4.svg
         :width: 300px
@@ -367,7 +371,7 @@ For the merge to be valid, at least one of the rooms within the designated merge
 
     .. code-block:: console
 
-       generate_maze.py -x 60 -y 60 -m w/3 -m nw/3 -m n/3 -m ne/3 -m e/3 -m se/3 -m s/3 -m sw/3
+       elmaze -x 60 -y 60 -m w/3 -m nw/3 -m n/3 -m ne/3 -m e/3 -m se/3 -m s/3 -m sw/3
 
     .. figure:: /images/example_cmd_merge_1.svg
         :width: 420px
@@ -376,7 +380,7 @@ For the merge to be valid, at least one of the rooms within the designated merge
 
     .. code-block:: console
 
-       generate_maze.py -x 84 -y 60 -e nw -e se -m w/3/1 -m nw/3 -m n/3/1 -m ne/3 -m e/3/1 -m se/3 -m s/3/1 -m sw/3 -b c/5 -f 1 -c ^m/w/3/1 -c ^m/nw/3 -c ^m/n/3/1 -c ^m/ne/3 -c ^m/e/3/1 -c ^m/se/3 -c ^m/s/3/1 -c ^m/sw/3
+       elmaze -x 84 -y 60 -e nw -e se -m w/3/1 -m nw/3 -m n/3/1 -m ne/3 -m e/3/1 -m se/3 -m s/3/1 -m sw/3 -b c/5 -f 1 -c ^m/w/3/1 -c ^m/nw/3 -c ^m/n/3/1 -c ^m/ne/3 -c ^m/e/3/1 -c ^m/se/3 -c ^m/s/3/1 -c ^m/sw/3
 
     .. figure:: /images/example_cmd_merge_2.svg
         :width: 420px
@@ -439,7 +443,7 @@ Customize the SVG output of your maze with the following options, allowing for a
 
 .. code-block:: console
 
-    generate_maze.py -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000
+    elmaze -x 60 -y 60 -b c/2 --svg-background-color=#800 --svg-room-color=#f42 --svg-endpoint-color=#fff --svg-endpoint-color=#000
 
 .. figure:: /images/example_cmd_color_1.svg
     :width: 300px
@@ -657,4 +661,3 @@ The insets parameter allows you to define the thickness of a frame around the ma
 - **Two Numbers**: The first number sets the thickness for the top and bottom sides, while the second number applies to the left and right sides. This allows for vertical and horizontal spacing to be defined independently.
 - **Three Numbers**: The first number specifies the top side, the second number applies to both the right and left sides equally, and the third number sets the thickness for the bottom side. This configuration is less common but can be useful for specific design needs.
 - **Four Numbers**: Each number corresponds directly to one side of the area in the order of top, right, bottom, and left. This offers the most precise control over the spacing, allowing each side to be individually adjusted.
-

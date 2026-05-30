@@ -1,0 +1,11 @@
+# Configuration file for the "github_workflows.py" script.
+--[ Main ]------------------------------------------------------------------------------------------------------------
+# Directory with GitHub workflow YAML files. The path is relative to the project root.
+Workflow Directory      : ".github/workflows"
+
+# Directories where external tools are allowed after resolving symlinks.
+Safe Binary Directories :
+    * "/bin"
+    * "/usr/bin"
+    * "/opt/homebrew/bin"
+    * "/opt/local/bin"

@@ -1,18 +1,17 @@
 [build-system]
 requires = [
-    "setuptools>=57",
-    "wheel",
-    "pycairo"
+    "hatchling>=1.27",
+    "hatch-vcs>=0.5"
 ]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 
 [project]
-name = "erbsland_maze"
+name = "erbsland-maze"
 dynamic = ["version"]
 description = "A fast, modular and customizable generator for rectangular mazes."
 readme = "README.rst"
 requires-python = ">=3.12"
-license = { text = "GPL-3.0-or-later" }
+license = "GPL-3.0-or-later"
 authors = [
     { name = "Erbsland DEV", email = "info@erbsland.dev" }
 ]
@@ -32,16 +31,44 @@ dependencies = [
     "pycairo >= 1.26.0"
 ]
 
+[project.optional-dependencies]
+docs = [
+    "sphinx>=8.2",
+    "sphinx-rtd-theme>=3.0"
+]
+test = [
+    "pytest>=8.0"
+]
+
+[project.scripts]
+elmaze = "erbsland_maze.cli:main"
+
 [project.urls]
 Documentation = "https://erbsland-dev.github.io/erbsland-maze/"
 Source = "https://github.com/erbsland-dev/erbsland-maze"
 Issues = "https://github.com/erbsland-dev/erbsland-maze/issues"
 
-[tool.setuptools]
-package-dir = { "" = "src" }
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = "^v(?P<version>\\d+\\.\\d+(?:\\.\\d+)?)$"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.hooks.vcs]
+version-file = "src/erbsland_maze/_version.py"
 
-[tool.setuptools.dynamic]
-version = { file = "src/erbsland_maze/VERSION.txt" }
+[tool.hatch.build.targets.wheel]
+packages = ["src/erbsland_maze"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/docs",
+    "/src",
+    "/tests",
+    "/LICENSE",
+    "/LICENSE.md",
+    "/README.rst",
+    "/pyproject.toml"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

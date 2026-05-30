@@ -24,40 +24,25 @@ Quickstart Guide
 
 Follow these steps to get started with Erbsland Maze:
 
-#.  Clone the repository and navigate into it:
+#.  Install the package from the PyPI:
 
     .. code-block:: console
 
-        git clone https://github.com/erbsland-dev/erbsland-maze/
-        cd erbsland-maze
-
-#.  Create and activate a new Python virtual environment:
-
-    .. code-block:: console
-
-        python3.12 -m venv venv
-        source venv/bin/activate
-
-#.  Install `pycairo`:
-
-    .. code-block:: console
-
-        pip install pycairo
+        pip install erbsland-maze
 
 #.  Generate your first maze:
 
     .. code-block:: console
 
-        cd src
-        python generate_maze.py -x 100 -y 100 -o maze.svg
+        elmaze -x 100 -y 100 -o maze.svg
 
-    This command creates a `maze.svg` file in the `src` directory with your newly generated maze.
+    This command creates a `maze.svg` file in the current directory with your newly generated maze.
 
 #.  For additional command-line options and configurations:
 
     .. code-block:: console
 
-        python generate_maze.py --help
+        elmaze --help
 
 Reference Documentation
 -----------------------
@@ -69,6 +54,7 @@ Reference Documentation
     command-line
     examples
     generate-via-api
+    changelog
 
 Indices and tables
 ------------------
@@ -76,4 +62,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

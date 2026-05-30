@@ -1,0 +1,16 @@
+# Configuration file for the "pre_commit.py" script.
+--[ Black ]-----------------------------------------------------------------------------------------------------------
+# Command-line options passed to black. Each list item is one command-line argument.
+Options:
+    * "--line-length"
+    * "120"
+
+# Directories scanned and formatted by black. All paths are relative to the project root.
+Directories:
+    * "src"
+    * "tests"
+    * "utilities"
+
+# Individual Python files formatted by black.
+Files:
+    * "docs/conf.py"
